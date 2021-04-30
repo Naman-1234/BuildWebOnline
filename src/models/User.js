@@ -53,19 +53,17 @@ userSchema.pre("save", function (next) {
   next();
 });
 
-userSchema.statics.findByCredentials = async (email,password)=>{
+userSchema.statics.findByCredentials = async (email, password) => {
+  //findOne here is getting a promise,We need to get the result in user
+  const user=await User.findOne({
+    email: email,
+  })
+  if (!user) throw new Error("No One Found");
 
-    const user = User.findOne({
-        email:email,
-    })
-    if(!user)
-    throw new Error('No One Found');
-
-    const passwordMatch = bcrypt.compare(password, user.password);
-    if(!passwordMatch)
-    throw new Error('No One Found');
-    return user;
-}
+  const passwordMatch = bcrypt.compare(password, user.password);
+  if (!passwordMatch) throw new Error("No One Found");
+  return user;
+};
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, process.env.secret, {

@@ -6,8 +6,12 @@ const User = require('../models/User');
 router.post("/",(req,res)=>{
 try{
     //Called on Schema and not on instance
-const user = User.findByCredentials(req.body.email,req.body.password);
-res.status(200).send(user);
+User.findByCredentials(req.body.email,req.body.password).then((user)=>{
+    res.status(200).send(user);
+}).catch((err)=>{
+    res.status(500).send(err);
+});
+
 }
 catch(err)
 {

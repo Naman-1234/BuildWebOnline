@@ -5,6 +5,7 @@ const User = require('../models/User');
 
 router.post("/",(req,res)=>{
 try{
+    //Called on Schema and not on instance
 const user = User.findByCredentials(req.body.email,req.body.password);
 res.status(200).send(user);
 }

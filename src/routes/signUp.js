@@ -3,6 +3,7 @@ const User = require('../models/User');
 router.post("/",async (req,res)=>{
     try {
     const user = new User(req.body);
+    //Being called by an instance and not a schema
     const token = await user.generateAuthToken();
     res.status(201).send({user,token});
     }

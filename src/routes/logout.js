@@ -25,3 +25,4 @@ router.post("/logoutall", async (req,res)=>{
        
     }
 })
+module.exports = router;

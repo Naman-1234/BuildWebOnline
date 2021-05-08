@@ -45,6 +45,14 @@ const userSchema = new mongoose.Schema({
     },
   ],
 });
+
+//Connecting it to Files Relation Or Collection
+userSchema.virtual('files', {
+  ref: 'File',
+  localField: '_id',
+  foreignField: 'owner'
+})
+
 //Before saving we will use bcrypt to secure the password
 userSchema.pre("save", async function (next) {
   const user = this;
@@ -92,7 +100,7 @@ userSchema.methods.toJSON = function()
   console.log('user is ',user);
   console.log('Type of user is',typeof(user));
   //This is a function in Mongoose
-  const publicUser = user
+  const publicUser = user.toObject();
   delete publicUser.password
   delete publicUser.tokens
   console.log('Type of publicUser ',typeof(publicUser));

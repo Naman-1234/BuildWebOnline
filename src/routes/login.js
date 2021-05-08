@@ -1,22 +1,20 @@
-const mongoose= require('mongoose');
-const jwt = require('jsonwebtoken');
-const router = require('express').Router();
-const User = require('../models/User');
+const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
+const router = require("express").Router();
+const User = require("../models/User");
 
-router.post("/",(req,res)=>{
-try{
+router.post("/", async (req, res) => {
+  try {
     //Called on Schema and not on instance
-User.findByCredentials(req.body.email,req.body.password).then((user)=>{
-    res.status(200).send(user);
-}).catch((err)=>{
-    res.status(500).send(err);
+    const user = await User.findByCredentials(
+      req.body.email,
+      req.body.password
+    );
+    console.log('Got a user', user);
+    const token = await user.generateAuthToken();
+    res.status(200).send({ user, token });
+  } catch (err) {
+    res.status(403).send(`No One Found, By the way err is ${err}`);
+  }
 });
-
-}
-catch(err)
-{
-    res.status(403).send('No One Found');
-}
-
-})
-module.exports=router;
+module.exports = router;

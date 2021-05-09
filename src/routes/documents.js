@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const auth = require('../middlewares/auth');
-const File = require('../models/Files');
-const mongoose = require('mongoose');
-router.post('/add', async (req, res) => {
+const router = require("express").Router();
+const auth = require("../middlewares/auth");
+const File = require("../models/Files");
+const mongoose = require("mongoose");
+router.post("/add", auth, async (req, res) => {
   try {
     const user = req.user || {
-      name: 'Naman Kalra',
-      _id: '609686528941121e202ce907',
-      phoneNo: '9817636188',
-      gender: 'Male',
-      email: 'namankalrabhiwani54@gmail.com',
+      name: "Naman Kalra",
+      _id: "609686528941121e202ce907",
+      phoneNo: "9817636188",
+      gender: "Male",
+      email: "namankalrabhiwani54@gmail.com",
       __v: 4,
     };
     const id = user._id.toString();
@@ -26,7 +26,7 @@ router.post('/add', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const id = req.params.id;
   const document = await File.findOne({
     _id: id,
@@ -34,13 +34,13 @@ router.get('/:id', async (req, res) => {
   res.status(200).send(document);
 });
 
-router.get('/', async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const user = req.user || {
-    name: 'Naman Kalra',
-    _id: '609686528941121e202ce907',
-    phoneNo: '9817636188',
-    gender: 'Male',
-    email: 'namankalrabhiwani54@gmail.com',
+    name: "Naman Kalra",
+    _id: "609686528941121e202ce907",
+    phoneNo: "9817636188",
+    gender: "Male",
+    email: "namankalrabhiwani54@gmail.com",
     __v: 4,
   };
   const id = user._id.toString();

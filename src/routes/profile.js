@@ -1,6 +1,9 @@
 const router = require("express").Router();
+const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 const auth = require("../middlewares/auth");
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     const user = req.user || {
       name: "Naman Kalra",

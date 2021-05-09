@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 require("dotenv").config();
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   try {
     //* One more thing, Currently we are using Authorization in header, We can also
     //* use localstorage.
@@ -9,8 +9,8 @@ const auth = (req, res, next) => {
     const token = req.header("Authorization").replace("Bearer ", "");
     //Verifying the token
     //If not verified it will automatically throw the error, No need to be handled by us.
-    const decoded = jwt.verify(token, process.env.secret);
-    const user = User.findOne({
+    const decoded = await jwt.verify(token, process.env.secret);
+    const user = await User.findOne({
       _id: decoded._id,
       "tokens.token": token,
     });
@@ -24,3 +24,4 @@ const auth = (req, res, next) => {
     res.status("401").send("Please authenticate");
   }
 };
+module.exports = auth;

@@ -18,7 +18,6 @@ const auth = async (req, res, next) => {
     //Setting current user to the one sent a request
     req.user = user;
     req.token = token;
-    console.log("Passing authentication");
     next();
   } catch (err) {
     res.status("401").send("Please authenticate");

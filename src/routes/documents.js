@@ -4,14 +4,7 @@ const File = require("../models/Files");
 const mongoose = require("mongoose");
 router.post("/add", auth, async (req, res) => {
   try {
-    const user = req.user || {
-      name: "Naman Kalra",
-      _id: "609686528941121e202ce907",
-      phoneNo: "9817636188",
-      gender: "Male",
-      email: "namankalrabhiwani54@gmail.com",
-      __v: 4,
-    };
+    const user = req.user;
     const id = user._id.toString();
     const { name, content } = req.body;
     const file = new File({
@@ -19,7 +12,14 @@ router.post("/add", auth, async (req, res) => {
       content: content,
       owner: id,
     });
-    await file.save();
+    file
+      .save()
+      .then((result) => {
+        console.log("SUccess", result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     res.status(201).send(file);
   } catch (error) {
     res.status(500).send(`Got an error ${error}`);

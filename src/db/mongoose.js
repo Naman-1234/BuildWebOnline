@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const connectionURL = "mongodb://127.0.0.1:27017/codepen";
+require("dotenv").config();
+const connectionURL = process.env.MONGO_DB_URL;
 // This file is just to connect mongoose and will be required in index.js
 mongoose.connect(connectionURL, {
   useCreateIndex: true,

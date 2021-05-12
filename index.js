@@ -4,6 +4,7 @@ require("./src/db/mongoose");
 require("dotenv").config();
 const cors = require("cors");
 const rateLimiter = require("express-rate-limit");
+const path = require("path");
 const port = process.env.PORT || 7000;
 const app = express();
 const limiter = rateLimiter({
@@ -32,6 +33,13 @@ app.use("/users/logout", logoutRouter);
 app.use("/users/documents", documentsRouter);
 app.use("/users/me", profileRouter);
 //Adding error for any other path than this.
+if (process.env.NODE_ENV === "production") {
+  //Since a build folder will be generated as soon as it is in production.
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 app.use("*", async (req, res, next) => {
   res.status(404).send("Not a valid route this is ");
 });

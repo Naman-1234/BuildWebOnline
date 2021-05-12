@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const File = require("../models/Files");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const auth = require("../middlewares/auth");
@@ -29,10 +30,25 @@ router.patch("/:id", auth, async (req, res) => {
       }
     );
     if (!user) res.status(401).send("Enter correct credentials please!!");
-    res.status(201).send();
+    res.status(201).send(user);
   } catch (err) {
     console.log(err);
     res.status(500).send(err);
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) res.status(404).send();
+    //Deleting all the documents associated with this user
+    const documents = await File.deleteMany({
+      owner: req.params.id,
+    });
+    console.log("Number of Deleted Documents are", documents.deletedCount);
+    res.status(201).send({ user, documents });
+  } catch (err) {
+    res.status(500).send(new Error(err));
   }
 });
 module.exports = router;

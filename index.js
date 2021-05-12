@@ -19,7 +19,7 @@ const loginRouter = require("./src/routes/login");
 const logoutRouter = require("./src/routes/logout");
 const documentsRouter = require("./src/routes/documents");
 const profileRouter = require("./src/routes/profile");
-const checkLoggedInRouter = require("./src/routes/checkLoggedIn");
+
 //Middlewares
 app.use(express.json());
 app.use(logger("dev"));
@@ -31,7 +31,7 @@ app.use("/users/login", loginRouter);
 app.use("/users/logout", logoutRouter);
 app.use("/users/documents", documentsRouter);
 app.use("/users/me", profileRouter);
-app.use("/checkLoggedIn", checkLoggedInRouter);
+//Adding error for any other path than this.
 app.use("*", async (req, res, next) => {
   res.status(404).send("Not a valid route this is ");
 });

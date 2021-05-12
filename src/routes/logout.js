@@ -13,14 +13,15 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+//To logout from all devices, Say you are currently logged from 4 different devices
+//Then this will logout from all devces.
 router.post("/all", async (req, res) => {
   try {
     req.user.tokens.splice(0, req.user.tokes.length);
     await req.user.save();
-    res.send();
+    res.status(201).send("Successfully Logged out from all devices");
   } catch (err) {
-    //Removing all tokens
-    res.status(500).send();
+    res.status(500).send(new Error(err));
   }
 });
 module.exports = router;

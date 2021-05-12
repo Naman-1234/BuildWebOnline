@@ -5,17 +5,22 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const auth = require("../middlewares/auth");
 const brcypt = require("bcryptjs");
+
+//To get the Profile of User
 router.get("/", auth, async (req, res) => {
   try {
     const user = req.user;
     res.status(200).send(user);
   } catch (err) {
-    res.status(404).send("No One found");
+    res.status(404).send(new Error(err));
   }
 });
+
+//To Update the user Profile
 router.patch("/:id", auth, async (req, res) => {
   try {
     const { name, email, gender, phoneNo } = req.body;
+    //Not Passing req.body in our findByIdAndUpdate since that will make password as NULL
     const user = await User.findByIdAndUpdate(
       req.params.id,
       {
@@ -32,11 +37,11 @@ router.patch("/:id", auth, async (req, res) => {
     if (!user) res.status(401).send("Enter correct credentials please!!");
     res.status(201).send(user);
   } catch (err) {
-    console.log(err);
     res.status(500).send(err);
   }
 });
 
+//To delete user Profile
 router.delete("/:id", auth, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -45,7 +50,6 @@ router.delete("/:id", auth, async (req, res) => {
     const documents = await File.deleteMany({
       owner: req.params.id,
     });
-    console.log("Number of Deleted Documents are", documents.deletedCount);
     res.status(201).send({ user, documents });
   } catch (err) {
     res.status(500).send(new Error(err));

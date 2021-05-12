@@ -7,10 +7,12 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     default: "Anonymous",
+    trim: true,
   },
   phoneNo: {
     type: String,
     required: true,
+    trim: true,
     length: 10,
     validate(value) {
       if (!validator.isMobilePhone(value))
@@ -25,6 +27,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    trim: true,
     unique: true,
     validate(value) {
       if (!validator.isEmail(value)) throw new Error("Email not valid");
@@ -34,6 +37,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     minLength: 6,
     required: true,
+    trim: true,
   },
   tokens: [
     {
@@ -45,7 +49,8 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-// Connecting it to Files Relation Or Collection
+// Connecting it to Files Collection, owner acts as a virtual key to
+// connect user and files collections.
 userSchema.virtual("files", {
   ref: "File",
   localField: "_id",
@@ -62,6 +67,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+//Defining statics method to be called by Schema
 userSchema.statics.findByCredentials = async (email, password) => {
   //findOne here is getting a promise,We need to get the result in user
   const user = await User.findOne({
@@ -74,11 +80,11 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
   return user;
 };
+//This method will be called by instance and hence arrow function is not used since
+//this binding is required in this method
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.secret, {
-    expiresIn: "7 days",
-  });
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.secret, {});
 
   //Adding them to userSchema tokens
   user.tokens = user.tokens.concat({ token });

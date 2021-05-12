@@ -2,6 +2,32 @@ const router = require("express").Router();
 const auth = require("../middlewares/auth");
 const File = require("../models/Files");
 const mongoose = require("mongoose");
+
+//For Getting all documents
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = req.user;
+    //Since the _id is of the form mongoose.Schema.Types.ObjectId
+    //We need to convert it into string first.
+    const id = user._id.toString();
+    const allDocuments = await File.getAllDocuments(id);
+    res.status(200).send(allDocuments);
+  } catch (err) {
+    res.status(500).send(new Error(err));
+  }
+});
+
+//To Get a Particular Document
+router.get("/:id", auth, async (req, res) => {
+  const id = req.params.id;
+  //Mongoose does the work of converting _id into string
+  const document = await File.findOne({
+    _id: id,
+  });
+  res.status(200).send(document);
+});
+
+//For Adding Document
 router.post("/add", auth, async (req, res) => {
   try {
     const user = req.user;
@@ -12,39 +38,17 @@ router.post("/add", auth, async (req, res) => {
       content: content,
       owner: id,
     });
+
     file
       .save()
-      .then((result) => {
-        console.log("SUccess", result);
-      })
+      .then((result) => {})
       .catch((err) => {
-        console.log(err);
+        throw new Error(err);
       });
     res.status(201).send(file);
   } catch (error) {
-    res.status(500).send(`Got an error ${error}`);
+    res.status(500).send(new Error(err));
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
-  const id = req.params.id;
-  const document = await File.findOne({
-    _id: id,
-  });
-  res.status(200).send(document);
-});
-
-router.get("/", auth, async (req, res) => {
-  const user = req.user || {
-    name: "Naman Kalra",
-    _id: "609686528941121e202ce907",
-    phoneNo: "9817636188",
-    gender: "Male",
-    email: "namankalrabhiwani54@gmail.com",
-    __v: 4,
-  };
-  const id = user._id.toString();
-  const allDocuments = await File.getAllDocuments(id);
-  res.status(200).send(allDocuments);
-});
 module.exports = router;

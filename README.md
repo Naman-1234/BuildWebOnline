@@ -27,7 +27,7 @@ Backend:
     5. express-rate-limit- To limit the amount of api calls per minute from a single IP
     6. mongoose- Object Document Mapper for Mongodb Database.
     7. jsonwebtoken- For User Login and Authentication.
-    8. morgan- Morgan is a logger which logs the request along with some details every time a request        is     made. 
+    8. morgan- Morgan is a logger which logs the request along with some details every time a request is made. 
     9. validator- To make validations of email, password etc while storing documents.
 - Linters: eslint
 ```

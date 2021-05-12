@@ -28,10 +28,6 @@ Backend:
 - Linters: eslint
 ```
 
-## Usage
-Please find the following video to know how to use this
-
-## Glimpse 
 ## Running Locally
 - Frontend
      1. Go to Code on Github Desktop of this repository and copy its http link from there.

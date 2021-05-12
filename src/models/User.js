@@ -45,12 +45,12 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-//Connecting it to Files Relation Or Collection
-// userSchema.virtual("files", {
-//   ref: "File",
-//   localField: "_id",
-//   foreignField: "owner",
-// });
+// Connecting it to Files Relation Or Collection
+userSchema.virtual("files", {
+  ref: "File",
+  localField: "_id",
+  foreignField: "owner",
+});
 
 //Before saving we will use bcrypt to secure the password
 userSchema.pre("save", async function (next) {

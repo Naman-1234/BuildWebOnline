@@ -1,6 +1,6 @@
 # Table of Contents:
-- [About](https://github.com/Naman-1234/BuildWebOnline-Frontend/blob/main/README.md#about)
-- [Getting Started](https://github.com/Naman-1234/BuildWeb/blob/main/README.md#getting-started-with-create-react-app) for Frontend
+- [About](https://github.com/Naman-1234/BuildWebOnline/blob/main/README.md#about)
+- [Getting Started](https://github.com/Naman-1234/BuildWebOnline/blob/main/README.md#getting-started-with-create-react-app)
 
 # About
 BuildWebOnline is a webApp on which anyone can come and start building awesome webpages.Since it will be stored online, you don't need to worry about your documents even if your device gets damaged or something.

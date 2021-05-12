@@ -1,0 +1,10 @@
+.frontPage {
+    position:relative;
+    .iframe {
+        height:100%;
+        width:100%;
+        background-color: #333642;
+        min-height:35vh;
+        overflow: auto;
+    }
+}

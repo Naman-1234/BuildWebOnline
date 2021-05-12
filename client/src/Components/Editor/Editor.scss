@@ -1,0 +1,13 @@
+@import "../../Utilities/mixins";
+.editor {
+  border: 15px solid #333642;
+  border-top: 0;
+  border-right: 0;
+  flex-grow: 1;
+  flex-basis: 0;
+  @include customFlex(column);
+  .codeMirror-editor {
+    height: 100% !important;
+    background-color: #272822;
+  }
+}

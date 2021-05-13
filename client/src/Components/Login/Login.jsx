@@ -54,9 +54,8 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("URL IS ", REACT_APP_URL);
-    const url = REACT_APP_URL;
     axios
-      .post(`${url}/users/login`, {
+      .post(`/users/login`, {
         email: email,
         password: password,
       })

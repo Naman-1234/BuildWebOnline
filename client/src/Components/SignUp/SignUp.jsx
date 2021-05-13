@@ -66,9 +66,8 @@ function SignUp() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("URL IS ", REACT_APP_URL);
-    const url = REACT_APP_URL;
     axios
-      .post(`${url}/users/signup`, {
+      .post(`/users/signup`, {
         name: name,
         phoneNo: phoneNo,
         gender: gender,

@@ -69,11 +69,10 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();
-    const url = REACT_APP_URL;
     if (btnName === "update") {
       axios
         .patch(
-          `${url}/users/me/${id}`,
+          `/users/me/${id}`,
           {
             name: name,
             phoneNo: phoneNo,
@@ -98,7 +97,7 @@ function Profile() {
         });
     } else {
       axios
-        .delete(`${url}/users/me/${id}`, {
+        .delete(`/users/me/${id}`, {
           headers: {
             Authorization: token,
           },
@@ -119,10 +118,9 @@ function Profile() {
     }
   };
 
-  const url = REACT_APP_URL;
   useEffect(() => {
     axios
-      .get(`${url}/users/me`, {
+      .get(`/users/me`, {
         headers: {
           Authorization: token,
         },

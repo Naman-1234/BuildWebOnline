@@ -8,10 +8,9 @@ function Documents() {
   const [documents, setdocuments] = useState([]);
   const [showDocuments, setShowDocuments] = useState(false);
   const { token, setToken } = useToken();
-  const url = REACT_APP_URL;
   useEffect(() => {
     axios
-      .get(`${url}/users/documents`, {
+      .get(`/users/documents`, {
         headers: {
           Authorization: token,
         },

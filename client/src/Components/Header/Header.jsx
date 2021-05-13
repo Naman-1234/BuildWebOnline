@@ -100,11 +100,10 @@ function Header(props) {
               className={[classes.button, "button"].join(" ")}
               startIcon={<SaveIcon />}
               onClick={() => {
-                const url = REACT_APP_URL;
                 const srcdoc = props.srcdoc;
                 axios
                   .post(
-                    `${url}/users/documents/add`,
+                    `/users/documents/add`,
                     {
                       name: name,
                       content: srcdoc,
@@ -159,10 +158,9 @@ function Header(props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  const url = REACT_APP_URL;
                   removeToken();
                   axios
-                    .get(`${url}/users/logout`, {
+                    .get(`/users/logout`, {
                       headers: {
                         Authorization: token,
                       },

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "npm install --prefix client",
-    "start": "node index.js",
+    "start": "node index.js --ignore client",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run start\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -21,6 +21,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.2.6",
+    "http-proxy-middleware": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.7",
     "morgan": "^1.10.0",

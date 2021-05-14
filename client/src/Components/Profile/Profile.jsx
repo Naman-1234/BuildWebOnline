@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
@@ -8,8 +8,7 @@ import history from "../History";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import useToken from "../../Utilities/CustomHooks/Token";
-const { REACT_APP_URL } = process.env;
-
+import "./Profile.scss";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -30,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+const useContainerStyles = makeStyles((theme) => ({
+  root: {
+    maxHeight: "100vh",
+  },
+}));
 const genderItems = [
   {
     value: "Male",
@@ -45,6 +49,7 @@ function Profile() {
   const [profile, setProfile] = useState({});
   const { token, setToken, removeToken } = useToken();
   const classes = useStyles();
+  const containerClasses = useContainerStyles();
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [gender, setGender] = useState("");
@@ -142,68 +147,74 @@ function Profile() {
   return (
     <div>
       {showProfile && (
-        <>
-          <form className={classes.root} onSubmit={handleSubmit}>
-            <TextField
-              label="Name"
-              variant="filled"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              label="Phone No."
-              variant="filled"
-              required
-              value={phoneNo}
-              onChange={(e) => setPhoneNo(e.target.value)}
-            />
-            <TextField
-              id="standard-select-currency"
-              select
-              label="Select"
-              value={gender}
-              onChange={(e) => {
-                setGender(e.target.value);
-              }}
-              helperText="Please select your Gender"
-            >
-              {genderItems.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+        <Grid container className={containerClasses.root}>
+          <Grid item xs={6} className="left">
+            <img src="images/profile.png" alt="Profile" className="left__img" />
+          </Grid>
+          <Grid item xs={6} className="right">
+            <h1>Your Profile is</h1>
+            <form onSubmit={handleSubmit} className={classes.root}>
+              <TextField
+                label="Name"
+                variant="filled"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <TextField
+                label="Phone No."
+                variant="filled"
+                required
+                value={phoneNo}
+                onChange={(e) => setPhoneNo(e.target.value)}
+              />
+              <TextField
+                id="standard-select-currency"
+                select
+                label="Select"
+                value={gender}
+                onChange={(e) => {
+                  setGender(e.target.value);
+                }}
+                helperText="Please select your Gender"
+              >
+                {genderItems.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
 
-            <TextField
-              label="Email"
-              variant="filled"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Button type="submit" variant="contained" color="primary">
-              Update
-            </Button>
-            <Button type="submit" variant="contained" color="primary">
-              Delete
-            </Button>
-          </form>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
-              SignUp Successful!!
-            </Alert>
-          </Snackbar>
-          <Snackbar
-            open={openError}
-            autoHideDuration={6000}
-            onClose={handleCloseError}
-          >
-            <Alert onClose={handleCloseError} severity="error">
-              Error While Signup!!
-            </Alert>
-          </Snackbar>
-        </>
+              <TextField
+                label="Email"
+                variant="filled"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <Button type="submit" variant="contained" color="primary">
+                Update
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Delete
+              </Button>
+            </form>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                SignUp Successful!!
+              </Alert>
+            </Snackbar>
+            <Snackbar
+              open={openError}
+              autoHideDuration={6000}
+              onClose={handleCloseError}
+            >
+              <Alert onClose={handleCloseError} severity="error">
+                Error While Signup!!
+              </Alert>
+            </Snackbar>
+          </Grid>
+        </Grid>
       )}
     </div>
   );

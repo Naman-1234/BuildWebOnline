@@ -192,12 +192,23 @@ function Profile() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Button type="submit" variant="contained" color="primary">
-                Update
-              </Button>
-              <Button type="submit" variant="contained" color="primary">
-                Delete
-              </Button>
+              <Grid
+                container
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                <Grid item xs={6}>
+                  <Button type="submit" variant="outlined" color="secondary">
+                    Update
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button type="submit" variant="outlined" color="secondary">
+                    Delete
+                  </Button>
+                </Grid>
+              </Grid>
             </form>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="success">

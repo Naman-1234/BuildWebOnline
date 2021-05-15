@@ -88,6 +88,9 @@ function SignUp() {
   return (
     <>
       <Grid container>
+        <Grid item xs={6} className="left">
+          <img src="images/signup.png" alt="Profile" className="left__img" />
+        </Grid>
         <Grid item xs={6} className="right">
           <h1>Signup Now</h1>
           <form onSubmit={handleSubmit} className={classes.root}>
@@ -137,7 +140,7 @@ function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="outlined" color="secondary">
               SignUp
             </Button>
           </form>
@@ -155,9 +158,6 @@ function SignUp() {
               Error While Signup!!
             </Alert>
           </Snackbar>
-        </Grid>
-        <Grid item xs={6} className="left">
-          <img src="images/signup.png" alt="Profile" className="left__img" />
         </Grid>
       </Grid>
     </>

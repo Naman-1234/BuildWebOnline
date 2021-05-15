@@ -73,8 +73,12 @@ function Login() {
   return (
     <>
       <Grid container>
-        <Grid item xs={6} className="left">
-          <img src="images/login.png" alt="Profile" className="left__img" />
+        <Grid item xs={6} className="leftImage">
+          <img
+            src="images/login.png"
+            alt="Profile"
+            className="leftImage__img"
+          />
         </Grid>
         <Grid item xs={6} className="right">
           <h1>Login now!!</h1>
@@ -94,7 +98,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" variant="filled" color="primary">
+            <Button type="submit" variant="outlined" color="secondary">
               Login
             </Button>
           </form>

@@ -25,6 +25,8 @@ Backend:
     7. jsonwebtoken- For User Login and Authentication.
     8. morgan- Morgan is a logger which logs the request along with some details every time a request is made. 
     9. validator- To make validations of email, password etc while storing documents.
+    10. http-proxy-middleware- To create a proxy for Connecting frontend and Backend.
+    11. concurrently- To start Frontend and Backend servers simultaneously.
 - Linters: eslint
 ```
 

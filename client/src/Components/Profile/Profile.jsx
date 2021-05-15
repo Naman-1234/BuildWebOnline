@@ -152,7 +152,7 @@ function Profile() {
             <img src="images/profile.png" alt="Profile" className="left__img" />
           </Grid>
           <Grid item xs={6} className="right">
-            <h1>Your Profile is</h1>
+            <h1>Profile</h1>
             <form onSubmit={handleSubmit} className={classes.root}>
               <TextField
                 label="Name"

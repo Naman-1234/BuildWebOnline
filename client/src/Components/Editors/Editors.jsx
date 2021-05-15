@@ -16,13 +16,16 @@ function Editors(props) {
       const srcdoc = location.state.srcdoc;
       let index1 = srcdoc.indexOf("<body>");
       let index2 = srcdoc.indexOf("</body>");
-      handleHtml(srcdoc.substr(index1 + 6, index2 - (index1 + 6)));
+      if (index1 !== -1)
+        handleHtml(srcdoc.substr(index1 + 6, index2 - (index1 + 6)));
       index1 = srcdoc.indexOf("<style>");
       index2 = srcdoc.indexOf("</style>");
-      handleCss(srcdoc.substr(index1 + 7, index2 - (index1 + 7)));
+      if (index1 !== -1)
+        handleCss(srcdoc.substr(index1 + 7, index2 - (index1 + 7)));
       index1 = srcdoc.indexOf("<script>");
       index2 = srcdoc.indexOf("</script>");
-      handleJs(srcdoc.substr(index1 + 8, index2 - (index1 + 8)));
+      if (index1 !== -1)
+        handleJs(srcdoc.substr(index1 + 8, index2 - (index1 + 8)));
     }
     setTimeout(() => {
       setsrcdoc(`<html>

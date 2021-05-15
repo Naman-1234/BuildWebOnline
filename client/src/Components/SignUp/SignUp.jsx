@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
@@ -7,7 +7,7 @@ import axios from "axios";
 import history from "../History";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-const { REACT_APP_URL } = process.env;
+import "./Signup.scss";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -65,7 +65,6 @@ function SignUp() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("URL IS ", REACT_APP_URL);
     axios
       .post(`/users/signup`, {
         name: name,
@@ -88,70 +87,78 @@ function SignUp() {
 
   return (
     <>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        <TextField
-          label="Name"
-          variant="filled"
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField
-          label="Phone No."
-          variant="filled"
-          required
-          value={phoneNo}
-          onChange={(e) => setPhoneNo(e.target.value)}
-        />
-        <TextField
-          id="standard-select-currency"
-          select
-          label="Select"
-          value={gender}
-          onChange={(e) => {
-            setGender(e.target.value);
-          }}
-          helperText="Please select your Gender"
-        >
-          {genderItems.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+      <Grid container>
+        <Grid item xs={6} className="right">
+          <h1>Signup Now</h1>
+          <form onSubmit={handleSubmit} className={classes.root}>
+            <TextField
+              label="Name"
+              variant="filled"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              label="Enter Password"
+              variant="filled"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              label="Phone No."
+              variant="filled"
+              required
+              value={phoneNo}
+              onChange={(e) => setPhoneNo(e.target.value)}
+            />
+            <TextField
+              id="standard-select-currency"
+              select
+              label="Select"
+              value={gender}
+              onChange={(e) => {
+                setGender(e.target.value);
+              }}
+              helperText="Please select your Gender"
+            >
+              {genderItems.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-        <TextField
-          label="Email"
-          variant="filled"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          label="Enter Password"
-          variant="filled"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" variant="contained" color="primary">
-          SignUp
-        </Button>
-      </form>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-          SignUp Successful!!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={openError}
-        autoHideDuration={6000}
-        onClose={handleCloseError}
-      >
-        <Alert onClose={handleCloseError} severity="error">
-          Error While Signup!!
-        </Alert>
-      </Snackbar>
+            <TextField
+              label="Email"
+              variant="filled"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              SignUp
+            </Button>
+          </form>
+          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success">
+              SignUp Successful!!
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={openError}
+            autoHideDuration={6000}
+            onClose={handleCloseError}
+          >
+            <Alert onClose={handleCloseError} severity="error">
+              Error While Signup!!
+            </Alert>
+          </Snackbar>
+        </Grid>
+        <Grid item xs={6} className="left">
+          <img src="images/signup.png" alt="Profile" className="left__img" />
+        </Grid>
+      </Grid>
     </>
   );
 }

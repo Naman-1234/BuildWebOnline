@@ -45,10 +45,12 @@ function DocumentCard(props) {
   const classes = useStyles();
   const cardClasses = useStyles();
   const document = props.document;
+  let date = new Date(document.updatedAt);
+  date = date.toUTCString();
   return (
     <>
       <Grid item xs={3}>
-        <Card className={cardClasses.root}>
+        <Card>
           <CardHeader
             avatar={
               <Avatar aria-label="recipe" className={classes.avatar}>
@@ -61,7 +63,7 @@ function DocumentCard(props) {
               </IconButton>
             }
             title={document.name}
-            subheader="September 14, 2016"
+            subheader={date}
           />
           <Link
             to={{
@@ -74,7 +76,7 @@ function DocumentCard(props) {
             <CardMedia
               className={cardClasses.media}
               component="img"
-              src="/images/code.jpg"
+              src="/images/documents.png"
               title="Code"
             />
           </Link>

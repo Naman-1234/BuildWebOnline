@@ -3,11 +3,14 @@ import axios from "axios";
 import DocumentCard from "./DocumentCard";
 import Grid from "@material-ui/core/Grid";
 import useToken from "../../Utilities/CustomHooks/Token";
-const { REACT_APP_URL } = process.env;
 function Documents() {
   const [documents, setdocuments] = useState([]);
   const [showDocuments, setShowDocuments] = useState(false);
   const { token, setToken } = useToken();
+  const [refresh, setRefresh] = useState(false);
+  window.onbeforeunload = (event) => {
+    setRefresh(!refresh);
+  };
   useEffect(() => {
     axios
       .get(`/users/documents`, {
@@ -22,7 +25,7 @@ function Documents() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [token, refresh]);
   return (
     <div>
       <h1

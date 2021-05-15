@@ -9,7 +9,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import useToken from "../../Utilities/CustomHooks/Token";
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="outlined" {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,19 +81,20 @@ function Login() {
           <form className={classes.root} onSubmit={handleSubmit}>
             <TextField
               label="Enter email"
-              variant="filled"
+              variant="outlined"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               label="Enter Password"
-              variant="filled"
+              variant="outlined"
+              type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="filled" color="primary">
               Login
             </Button>
           </form>

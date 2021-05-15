@@ -156,14 +156,14 @@ function Profile() {
             <form onSubmit={handleSubmit} className={classes.root}>
               <TextField
                 label="Name"
-                variant="filled"
+                variant="outlined"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <TextField
                 label="Phone No."
-                variant="filled"
+                variant="outlined"
                 required
                 value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
@@ -187,7 +187,7 @@ function Profile() {
 
               <TextField
                 label="Email"
-                variant="filled"
+                variant="outlined"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

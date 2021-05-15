@@ -10,7 +10,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import "./Signup.scss";
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="outlined" {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,21 +93,22 @@ function SignUp() {
           <form onSubmit={handleSubmit} className={classes.root}>
             <TextField
               label="Name"
-              variant="filled"
+              variant="outlined"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <TextField
               label="Enter Password"
-              variant="filled"
+              variant="outlined"
               required
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
               label="Phone No."
-              variant="filled"
+              variant="outlined"
               required
               value={phoneNo}
               onChange={(e) => setPhoneNo(e.target.value)}
@@ -131,7 +132,7 @@ function SignUp() {
 
             <TextField
               label="Email"
-              variant="filled"
+              variant="outlined"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}

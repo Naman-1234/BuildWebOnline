@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -12,8 +12,13 @@ import { Link } from "react-router-dom";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { Button } from "@material-ui/core";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import axios from "axios";
-import useToken from "../../Utilities/CustomHooks/Token"
+import useToken from "../../Utilities/CustomHooks/Token";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -47,39 +52,48 @@ const useCardStyle = makeStyles((theme) => ({
   },
 }));
 
-
-
 function DocumentCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const {token} = useToken();
+  const { token } = useToken();
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const cardClasses = useStyles();
   const document = props.document;
-  const id= document._id;
+  const id = document._id;
   let date = new Date(document.updatedAt);
   date = date.toUTCString();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleDelete = (id)=>{
-    console.log('Made a request');
-    axios.delete(`/users/documents/delete/${id}`,{
-      headers: {
-        Authorization: token,
-      },
-    })
-    .then(async (result) => {
-    console.log('Successfully deleted')
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  
-  }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClickClose = (e) => {
+    setOpen(false);
+    console.log(e.target.outerText);
+    if (e.target.outerText === "YES") handleDelete();
+  };
+  const handleDelete = () => {
+    console.log("Made a request");
+    axios
+      .delete(`/users/documents/delete/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(async (result) => {
+        console.log("Successfully deleted");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <Grid item xs={3}>
@@ -92,32 +106,64 @@ function DocumentCard(props) {
             }
             action={
               <>
-              <IconButton aria-label="settings"  aria-controls="simple-menu"
-              aria-haspopup="true"
-              onClick={handleClick}>
-                <MoreVertIcon />
-              </IconButton>
-               <Menu
-               id="simple-menu"
-               anchorEl={anchorEl}
-               keepMounted
-               open={Boolean(anchorEl)}
-               onClose={handleClose}
-             >
-               <MenuItem >
-               Edit
-               </MenuItem>
-               <MenuItem
-               onClick={()=>{
-                 handleDelete(id)
-               }
-               }
-               >
-               Delete
-               </MenuItem>
-               </ Menu>
-               </>
-              
+                <IconButton
+                  aria-label="settings"
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem>Edit</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleClickOpen(id);
+                    }}
+                  >
+                    Delete
+                  </MenuItem>
+                </Menu>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Are you sure you want to delete this?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      Clicking on Yes will remove this document from our
+                      Database and you will not be able to recover this.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={handleClickClose}
+                      color="secondary"
+                      variant="outlined"
+                    >
+                      No
+                    </Button>
+                    <Button
+                      onClick={handleClickClose}
+                      color="secondary"
+                      autoFocus
+                      variant="outlined"
+                    >
+                      Yes
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </>
             }
             title={document.name}
             subheader={date}

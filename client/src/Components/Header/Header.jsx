@@ -14,7 +14,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
 import useToken from "../../Utilities/CustomHooks/Token";
-const { REACT_APP_URL } = process.env;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",

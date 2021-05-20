@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
+const passport = require("passport");
 require("./src/db/mongoose");
 require("dotenv").config();
 const cors = require("cors");
@@ -7,6 +8,8 @@ const rateLimiter = require("express-rate-limit");
 const path = require("path");
 const port = process.env.PORT || 7000;
 const app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 const limiter = rateLimiter({
   windowMs: 60000,
   max: process.env.CALLS_PER_MINUTE || 5,
@@ -27,6 +30,19 @@ app.use(logger("dev"));
 app.use(cors());
 app.use(limiter);
 
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/failed" }),
+  function (req, res) {
+    res.redirect("/");
+  }
+);
+
 app.use("/users/signup", signUpRouter);
 app.use("/users/login", loginRouter);
 app.use("/users/logout", logoutRouter);
@@ -40,9 +56,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
-app.use("*", async (req, res, next) => {
-  res.status(404).send("Not a valid route this is ");
-});
+// app.use("*", async (req, res, next) => {
+//   res.status(404).send("Not a valid route this is ");
+// });
 app.listen(port, () => {
   console.log(`Started at ${port}`);
 });

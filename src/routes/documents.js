@@ -16,6 +16,9 @@ router.get("/", auth, async (req, res) => {
     res.status(500).send(new Error(err));
   }
 });
+router.get("/delete", (req, res) => {
+  res.send("hey");
+});
 
 //To Get a Particular Document
 router.get("/:id", auth, async (req, res) => {
@@ -27,19 +30,6 @@ router.get("/:id", auth, async (req, res) => {
   res.status(200).send(document);
 });
 
-router.delete("/", auth, async (req, res) => {
-  console.log("Inside delete router");
-  try {
-    const id = req.params.id || "60a4181c7868df32a80dd18a";
-    const deleteFile = await File.deleteOne({
-      _id: id,
-    });
-    await File.save();
-    res.send(201).send("Successfully deleted");
-  } catch (e) {
-    res.status(404).send(e);
-  }
-});
 //For Adding Document
 router.post("/add", auth, async (req, res) => {
   try {

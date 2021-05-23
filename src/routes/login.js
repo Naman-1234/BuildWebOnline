@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const router = require('express').Router();
 const User = require('../models/User');
 const auth = require('../middlewares/auth');
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     //Called on Schema and not on instance
     const user = await User.findByCredentials(

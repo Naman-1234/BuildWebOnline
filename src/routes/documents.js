@@ -28,7 +28,7 @@ router.get("/:id", auth, async (req, res) => {
   res.status(200).send(document);
 });
 
-
+//For Deleting a particulat element
 router.delete('/delete/:id/', async (req, res) => {
   try{
     const file = await File.findByIdAndDelete(req.params.id);

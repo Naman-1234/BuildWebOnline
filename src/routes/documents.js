@@ -1,10 +1,10 @@
-const router = require("express").Router();
-const auth = require("../middlewares/auth");
-const File = require("../models/Files");
-const mongoose = require("mongoose");
+const router = require('express').Router();
+const auth = require('../middlewares/auth');
+const File = require('../models/Files');
+const mongoose = require('mongoose');
 
 //For Getting all documents
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const user = req.user;
     //Since the _id is of the form mongoose.Schema.Types.ObjectId
@@ -17,9 +17,8 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-
 //To Get a Particular Document
-router.get("/:id", auth, async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   const id = req.params.id;
   //Mongoose does the work of converting _id into string
   const document = await File.findOne({
@@ -29,21 +28,18 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 //For Deleting a particulat element
-router.delete('/delete/:id/', async (req, res) => {
-  try{
+router.delete('/delete/:id/', auth, async (req, res) => {
+  try {
     const file = await File.findByIdAndDelete(req.params.id);
-    if(!file)
-    res.status(404).send();
-    else
-    res.status(201).send({file});
-  }
-  catch(e){
+    if (!file) res.status(404).send();
+    else res.status(201).send({ file });
+  } catch (e) {
     console.log(e);
   }
 });
 
 //For Adding Document
-router.post("/add", auth, async (req, res) => {
+router.post('/add', auth, async (req, res) => {
   try {
     const user = req.user;
     const id = user._id.toString();
@@ -62,7 +58,7 @@ router.post("/add", auth, async (req, res) => {
       });
     res.status(201).send(file);
   } catch (error) {
-    res.status(500).send(new Error(err));
+    res.status(500).send(new Error(error));
   }
 });
 

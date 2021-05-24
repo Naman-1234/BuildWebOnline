@@ -3,37 +3,17 @@ const app = require('../../app');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const {
+  userId,
+  secondUserId,
+  authenticatedUser,
+  secondAuthenticatedUser,
+  unAuthenticatedUser,
+  setUpDatabase,
+} = require('./fixtures/db');
 //This should load all the code except port listen
-
-const userId = new mongoose.Types.ObjectId();
-//Deleting  the data in a database first to start down the fresh lane always.
-const authenticatedUser = {
-  _id: userId,
-  name: 'Naman',
-  email: 'naman@gmail.com',
-  password: '123456',
-  gender: 'Male',
-  phoneNo: '9817636188',
-  tokens: [
-    {
-      token: jwt.sign({ _id: userId }, process.env.secret),
-    },
-  ],
-};
-const unAuthenticatedUser = {
-  name: 'Naman',
-  email: 'naman-unauth@gmail.com',
-  password: '123456',
-  gender: 'Male',
-  phoneNo: '9817636188',
-};
-
 //* Must put that user in database
-beforeEach(async () => {
-  await User.deleteMany();
-  await new User(unAuthenticatedUser).save();
-  await new User(authenticatedUser).save();
-});
+beforeEach(setUpDatabase);
 
 test('Should signup a authenticated User', async () => {
   await request(app)

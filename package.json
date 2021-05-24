@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "env-cmd -f ./src/config/test.env jest --watch",
+    "test": "env-cmd -f ./src/config/test.env jest --watch --runInBand",
     "client-install": "npm install --prefix client",
     "start": "node index.js --ignore client",
     "client": "npm start --prefix client",

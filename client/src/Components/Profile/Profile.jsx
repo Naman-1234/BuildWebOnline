@@ -1,71 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import history from "../History";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import useToken from "../../Utilities/CustomHooks/Token";
-import "./Profile.scss";
+import React, { useEffect, useState } from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import history from '../History';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import useToken from '../../Utilities/CustomHooks/Token';
+import './Profile.scss';
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: theme.spacing(2),
 
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "300px",
+      width: '300px',
     },
-    "& .MuiButtonBase-root": {
+    '& .MuiButtonBase-root': {
       margin: theme.spacing(2),
     },
   },
 }));
 const useContainerStyles = makeStyles((theme) => ({
   root: {
-    maxHeight: "100vh",
+    maxHeight: '100vh',
   },
 }));
 const genderItems = [
   {
-    value: "Male",
-    label: "Male",
+    value: 'Male',
+    label: 'Male',
   },
   {
-    value: "Female",
-    label: "Female",
+    value: 'Female',
+    label: 'Female',
   },
 ];
 function Profile() {
   const [showProfile, setShowProfile] = useState(false);
-  const [profile, setProfile] = useState({});
-  const { token, setToken, removeToken } = useToken();
+  const { token, removeToken } = useToken();
   const classes = useStyles();
   const containerClasses = useContainerStyles();
-  const [name, setName] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
   const handleCloseError = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
     setOpenError(false);
   };
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -74,7 +73,7 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();
-    if (btnName === "update") {
+    if (btnName === 'update') {
       axios
         .patch(
           `/users/me/${id}`,
@@ -92,12 +91,12 @@ function Profile() {
         )
         .then((result) => {
           <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity="success">Successfully Updated Profile</Alert>
+            <Alert severity='success'>Successfully Updated Profile</Alert>
           </Snackbar>;
         })
         .catch((err) => {
           <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity="error">Enter correct Credentials Please!!</Alert>
+            <Alert severity='error'>Enter correct Credentials Please!!</Alert>
           </Snackbar>;
         });
     } else {
@@ -110,14 +109,14 @@ function Profile() {
         .then((result) => {
           removeToken();
           <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity="success">Successfully Updated Profile</Alert>
+            <Alert severity='success'>Successfully Updated Profile</Alert>
           </Snackbar>;
           history.length = 0;
-          history.push("/");
+          history.push('/');
         })
         .catch((err) => {
           <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity="error">Enter correct Credentials Please!!</Alert>
+            <Alert severity='error'>Enter correct Credentials Please!!</Alert>
           </Snackbar>;
         });
     }
@@ -148,35 +147,35 @@ function Profile() {
     <div>
       {showProfile && (
         <Grid container className={containerClasses.root}>
-          <Grid item xs={6} className="left">
-            <img src="images/profile.png" alt="Profile" className="left__img" />
+          <Grid item xs={6} className='left'>
+            <img src='images/profile.png' alt='Profile' className='left__img' />
           </Grid>
-          <Grid item xs={6} className="right">
+          <Grid item xs={6} className='right'>
             <h1>Profile</h1>
             <form onSubmit={handleSubmit} className={classes.root}>
               <TextField
-                label="Name"
-                variant="outlined"
+                label='Name'
+                variant='outlined'
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <TextField
-                label="Phone No."
-                variant="outlined"
+                label='Phone No.'
+                variant='outlined'
                 required
                 value={phoneNo}
                 onChange={(e) => setPhoneNo(e.target.value)}
               />
               <TextField
-                id="standard-select-currency"
+                id='standard-select-currency'
                 select
-                label="Select"
+                label='Select'
                 value={gender}
                 onChange={(e) => {
                   setGender(e.target.value);
                 }}
-                helperText="Please select your Gender"
+                helperText='Please select your Gender'
               >
                 {genderItems.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -186,8 +185,8 @@ function Profile() {
               </TextField>
 
               <TextField
-                label="Email"
-                variant="outlined"
+                label='Email'
+                variant='outlined'
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -195,23 +194,23 @@ function Profile() {
               <Grid
                 container
                 style={{
-                  textAlign: "center",
+                  textAlign: 'center',
                 }}
               >
                 <Grid item xs={6}>
-                  <Button type="submit" variant="outlined" color="secondary">
+                  <Button type='submit' variant='outlined' color='secondary'>
                     Update
                   </Button>
                 </Grid>
                 <Grid item xs={6}>
-                  <Button type="submit" variant="outlined" color="secondary">
+                  <Button type='submit' variant='outlined' color='secondary'>
                     Delete
                   </Button>
                 </Grid>
               </Grid>
             </form>
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="success">
+              <Alert onClose={handleClose} severity='success'>
                 SignUp Successful!!
               </Alert>
             </Snackbar>
@@ -220,7 +219,7 @@ function Profile() {
               autoHideDuration={6000}
               onClose={handleCloseError}
             >
-              <Alert onClose={handleCloseError} severity="error">
+              <Alert onClose={handleCloseError} severity='error'>
                 Error While Signup!!
               </Alert>
             </Snackbar>

@@ -1,9 +1,8 @@
-import "./App.css";
-import FrontPage from "./Components/FrontPage/FrontPage";
-import Routes from "./Components/Routes";
+import './App.css';
+import Routes from './Components/Routes';
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Routes />
     </div>
   );

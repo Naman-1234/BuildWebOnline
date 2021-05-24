@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import history from "../History";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import useToken from "../../Utilities/CustomHooks/Token";
+import React, { useState } from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import history from '../History';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import useToken from '../../Utilities/CustomHooks/Token';
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="outlined" {...props} />;
+  return <MuiAlert elevation={6} variant='outlined' {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: theme.spacing(2),
 
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "300px",
+      width: '300px',
     },
-    "& .MuiButtonBase-root": {
+    '& .MuiButtonBase-root': {
       margin: theme.spacing(2),
     },
   },
@@ -31,20 +31,20 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
-  const { token, setToken } = useToken();
+  const { setToken } = useToken();
   const handleCloseError = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
     setOpenError(false);
   };
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -63,7 +63,7 @@ function Login() {
         setOpen(true);
         setToken(token);
         setTimeout(() => {
-          history.push("/");
+          history.push('/');
         }, 1500);
       })
       .catch((err) => {
@@ -73,37 +73,37 @@ function Login() {
   return (
     <>
       <Grid container>
-        <Grid item xs={6} className="leftImage">
+        <Grid item xs={6} className='leftImage'>
           <img
-            src="images/login.png"
-            alt="Profile"
-            className="leftImage__img"
+            src='images/login.png'
+            alt='Profile'
+            className='leftImage__img'
           />
         </Grid>
-        <Grid item xs={6} className="right">
+        <Grid item xs={6} className='right'>
           <h1>Login now!!</h1>
           <form className={classes.root} onSubmit={handleSubmit}>
             <TextField
-              label="Enter email"
-              variant="outlined"
+              label='Enter email'
+              variant='outlined'
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
-              label="Enter Password"
-              variant="outlined"
-              type="password"
+              label='Enter Password'
+              variant='outlined'
+              type='password'
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" variant="outlined" color="secondary">
+            <Button type='submit' variant='outlined' color='secondary'>
               Login
             </Button>
           </form>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
+            <Alert onClose={handleClose} severity='success'>
               Login Successful!!
             </Alert>
           </Snackbar>
@@ -112,7 +112,7 @@ function Login() {
             autoHideDuration={6000}
             onClose={handleCloseError}
           >
-            <Alert onClose={handleCloseError} severity="error">
+            <Alert onClose={handleCloseError} severity='error'>
               No One found!!
             </Alert>
           </Snackbar>

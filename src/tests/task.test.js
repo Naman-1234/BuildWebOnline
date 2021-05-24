@@ -50,5 +50,5 @@ test('User should not be able to delete others documents', async () => {
     .delete(`/users/documents/delete/${id}`)
     .set('Authorization', `Bearer ${secondAuthenticatedUser.tokens[0].token}`)
     .send()
-    .expect(401);
+    .expect(404);
 });

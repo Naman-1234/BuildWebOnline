@@ -23,6 +23,7 @@ router.get('/:id', auth, async (req, res) => {
   //Mongoose does the work of converting _id into string
   const document = await File.findOne({
     _id: id,
+    owner: req.user._id,
   });
   res.status(200).send(document);
 });
@@ -30,7 +31,10 @@ router.get('/:id', auth, async (req, res) => {
 //For Deleting a particulat element
 router.delete('/delete/:id/', auth, async (req, res) => {
   try {
-    const file = await File.findByIdAndDelete(req.params.id);
+    const file = await File.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user._id,
+    });
     if (!file) res.status(404).send();
     else res.status(201).send({ file });
   } catch (e) {

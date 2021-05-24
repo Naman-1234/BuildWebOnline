@@ -25,7 +25,7 @@ const secondAuthenticatedUser = {
   _id: secondUserId,
   name: 'Naman',
   email: 'naman-second@gmail.com',
-  password: '23456',
+  password: '2345612',
   gender: 'Male',
   phoneNo: '9817636188',
   tokens: [
@@ -62,6 +62,7 @@ const setUpDatabase = async () => {
   await Task.deleteMany();
   await new User(unAuthenticatedUser).save();
   await new User(authenticatedUser).save();
+  await new User(secondAuthenticatedUser).save();
   await new Task(documentForAuthenticated).save();
   await new Task(documentForUnAuthenticated).save();
 };

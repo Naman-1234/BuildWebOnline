@@ -3,7 +3,7 @@ import React, { useState } from "react";
 //In this a custom hook is written so as to maintain token across client side.
 function useToken() {
   const getToken = () => {
-    const tokenString = localStorage.getItem("token");
+    const tokenString = localStorage.getItem('token');
     // const tokenJSON = JSON.parse(tokenString);
     //Using Optional Chaining Operator to not let undefined. circumstance happen
     return tokenString;

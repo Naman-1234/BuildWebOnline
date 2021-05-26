@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import DocumentCard from "./DocumentCard";
-import Grid from "@material-ui/core/Grid";
-import useToken from "../../Utilities/CustomHooks/Token";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import DocumentCard from './DocumentCard';
+import Grid from '@material-ui/core/Grid';
+import useToken from '../../Utilities/CustomHooks/Token';
 function Documents() {
   const [documents, setdocuments] = useState([]);
   const [showDocuments, setShowDocuments] = useState(false);
-  const { token, setToken } = useToken();
+  const { token } = useToken();
   const [refresh, setRefresh] = useState(false);
   window.onbeforeunload = (event) => {
     setRefresh(!refresh);
@@ -30,8 +30,8 @@ function Documents() {
     <div>
       <h1
         style={{
-          marginBottom: "50px",
-          textAlign: "center",
+          marginBottom: '50px',
+          textAlign: 'center',
         }}
       >
         Your documents are

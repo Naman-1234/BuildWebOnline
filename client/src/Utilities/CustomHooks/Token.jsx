@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 
 //In this a custom hook is written so as to maintain token across client side.
 function useToken() {
@@ -10,15 +10,15 @@ function useToken() {
   };
 
   const [token, setToken] = useState(getToken());
-  console.log("Inside useToken and token is ", getToken());
+  console.log('Inside useToken and token is ', getToken());
   const saveToken = (userToken) => {
     //Using localstorage so as to allow user logged in across windows.
-    localStorage.setItem("token", userToken);
+    localStorage.setItem('token', userToken);
     setToken(userToken);
   };
   const removeToken = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
+    localStorage.removeItem('token');
+    window.location.href = '/';
   };
   return {
     setToken: saveToken,

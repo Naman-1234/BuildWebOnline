@@ -1,0 +1,6 @@
+@import "../../Utilities/mixins";
+.editors {
+  @include customFlex(row, space-between, space-between);
+  height: 55vh;
+  border-bottom: #333642;
+}

@@ -1,0 +1,49 @@
+@import "../../Utilities/mixins";
+.header {
+  min-height: 10vh;
+  max-height: 10vh;
+  @include customFlex(row, space-between, center);
+  background: #1a1b1f;
+  color: #fff;
+  .white {
+    color: #fff;
+  }
+  &__left {
+    @include customFlex(row, space-around, center);
+    padding: 5px 15px 15px 25px;
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+      border-radius: 50%;
+      object-fit: scale-down;
+      cursor: pointer;
+    }
+    .inputName {
+      background: none;
+      color: #fff;
+      outline: 0;
+      border: 0;
+
+      ::placeholder {
+        color: #fff;
+      }
+    }
+  }
+
+  &__right {
+    @include customFlex(row, space-around, center);
+    .button {
+      margin: 0px 15px 15px 0px;
+      padding: 10px 7px 10px 7px;
+      border-radius: 5px;
+      background-color: #5a5f73;
+      color: #fff;
+      cursor: pointer;
+    }
+    .avatarImage {
+      margin: 0px 15px 15px 0px;
+      cursor: pointer;
+    }
+  }
+}

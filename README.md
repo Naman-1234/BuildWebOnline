@@ -36,13 +36,13 @@ Backend:
      2. Now Open your terminal.   <br>
      3. Navigate to any directory preferred by you through using `cd` command.<br>
      4. Clone project there by `git clone <url copied>`<br>
-     5. Navigate to Frontend by` cd BuildWebOnline` and type `cd client` to move to frontend part then type `npm i` to install all packages.<br>
+     5. Navigate to Frontend by` cd BuildWebOnline` and type `cd client` to move to frontend part then type `yarn` to install all packages.<br>
      6. After Following this steps go to  [Getting Started](https://github.com/Naman-1234/BuildWebOnline-Frontend/blob/main/README.md#getting-started-with-create-react-app) for further information.<br>
 
 - Backend<br>
      1. Navigate to Backend by `cd ..` and type `npm i` to install all packages.<br>
      2. Type `cp .env.example .env` and replace value of variables there.<br>
-     3. Type `node index.js` to start the server locally, Server will start on Port 7000. To Run on any other port go to index.js and change Value of Port.<br>
+     3. Type `node index.js` to start the server locally, Server will start on Port 3001. To Run on any other port go to index.js and change Value of Port.<br>
 
 ## Learning
 Building this project and solving the errors came along was a beautiful journey. This is a great project to anyone who wants to make his/her skills better in MERN Stack or Sole Frontend and Backend.

@@ -1,0 +1,58 @@
+const router = require("express").Router();
+const User = require("../models/User");
+const File = require("../models/Files");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const auth = require("../middlewares/auth");
+const brcypt = require("bcryptjs");
+
+//To get the Profile of User
+router.get("/", auth, async (req, res) => {
+  try {
+    const user = req.user;
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(404).send(new Error(err));
+  }
+});
+
+//To Update the user Profile
+router.patch("/:id", auth, async (req, res) => {
+  try {
+    const { name, email, gender, phoneNo } = req.body;
+    //Not Passing req.body in our findByIdAndUpdate since that will make password as NULL
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        name: name,
+        email: email,
+        gender: gender,
+        phoneNo: phoneNo,
+      },
+      {
+        new: true,
+        useValidators: true,
+      }
+    );
+    if (!user) res.status(401).send("Enter correct credentials please!!");
+    res.status(201).send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+//To delete user Profile
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) res.status(404).send();
+    //Deleting all the documents associated with this user
+    const documents = await File.deleteMany({
+      owner: req.params.id,
+    });
+    res.status(201).send({ user, documents });
+  } catch (err) {
+    res.status(500).send(new Error(err));
+  }
+});
+module.exports = router;

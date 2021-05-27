@@ -27,13 +27,17 @@ function Editors(props) {
       if (index1 !== -1)
         handleJs(srcdoc.substr(index1 + 8, index2 - (index1 + 8)));
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setsrcdoc(`<html>
           <body>${html}</body>
           <style>${css}</style>
           <script>${javascript}</script>
           </html>`);
     }, 1000);
+    //This is a cleanUp Function so to not let any shaking effect while refreshing
+    return ()=>{
+      clearTimeout(timeout)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [html, css, javascript]);
 

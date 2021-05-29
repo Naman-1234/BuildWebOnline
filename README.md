@@ -42,7 +42,14 @@ Backend:
 - Backend<br>
      1. Navigate to Backend by `cd ..` and type `npm i` to install all packages.<br>
      2. Type `cp .env.example .env` and replace value of variables there.<br>
-     3. Type `node index.js` to start the server locally, Server will start on Port 3001. To Run on any other port go to index.js and change Value of Port.<br>
+     3. Type `node index.js` to start the server alone, Server will start on Port 3001. To Run on any other port go to index.js and change Value of Port.<br>
+
+- After Above Steps:
+    1. After following above steps type `npm run dev` to start frontend and backend concurrently.
+    2. By default frontend will run on port 3000 and Backend on the Port 3001
+    3. In case you get error messages like `Port already in use` type
+        - For Linux: `sudo fuser -k <port>/tcp`, this will kill all the processes associated with port specified.
+        - For Windows: `netstat -o -n -a | findstr <port>` ,this will give you all the processes running on different Ports along with their PID. Then kill required one using `taskkill /F /PID <pid>` using cmd as an administrator/
 
 ## Learning
 Building this project and solving the errors came along was a beautiful journey. This is a great project to anyone who wants to make his/her skills better in MERN Stack or Sole Frontend and Backend.
@@ -65,7 +72,6 @@ Through this I got to learn more about
        3. Handling authentication in Postman.
 
 ## I will continue working on this project and will add some more features:
-- Improving UI.
 - Testing using Jest.
 - Giving Options of Logging through other Platforms like Google, Github etc if possible.
 - Setting Document Visible to all if user permits, to make others see that amazing project.

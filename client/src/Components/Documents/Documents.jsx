@@ -6,7 +6,7 @@ import useToken from '../../Utilities/CustomHooks/Token';
 function Documents() {
   const [documents, setdocuments] = useState([]);
   const [showDocuments, setShowDocuments] = useState(false);
-  const { token, setToken } = useToken();
+  const { token } = useToken();
   // const [refresh, setRefresh] = useState(false);
   // window.onbeforeunload = (event) => {
   //   setRefresh(!refresh);

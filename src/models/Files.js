@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const fileSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      default: "untitled",
+      default: 'untitled',
       trim: true,
-      required: true,
+      required: [true, 'Name is required'],
       unique: true,
     },
     content: {
@@ -20,7 +20,7 @@ const fileSchema = new mongoose.Schema(
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
   },
   {
@@ -34,5 +34,5 @@ fileSchema.statics.getAllDocuments = async (id) => {
   });
   return allDocuments;
 };
-const File = new mongoose.model("File", fileSchema);
+const File = new mongoose.model('File', fileSchema);
 module.exports = File;

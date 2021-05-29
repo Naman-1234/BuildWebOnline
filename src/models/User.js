@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     default: 'Anonymous',
     trim: true,
     required: [true, 'Name is required'],
+    unique: [true, 'Name already taken.'],
   },
   phoneNo: {
     type: String,

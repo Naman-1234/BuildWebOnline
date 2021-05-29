@@ -29,9 +29,11 @@ function Header(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState('Untitled');
   const [isReadOnly, setIsReadOnly] = useState(true);
+  const [openError, setErrorOpen] = useState(false);
   const [openLogOut, setLogOut] = useState(false);
   const { token, removeToken } = useToken();
-
+  const [errorMessage, setErrorMessage] = useState([]);
+  const [documentSaved, setDocumentSaved] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       if (token) setAuthorized(true);
@@ -45,8 +47,23 @@ function Header(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleCloseLogOut = () => {
+  const handleCloseLogOut = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
     setLogOut(false);
+  };
+  const handleCloseError = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setErrorOpen(false);
+  };
+  const handleCloseDocumentSave = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setDocumentSaved(false);
   };
 
   const classes = useStyles();
@@ -115,9 +132,12 @@ function Header(props) {
                   )
                   .then((result) => {
                     console.log('Success in Adding document');
+                    setDocumentSaved(true);
                   })
                   .catch((err) => {
-                    throw new Error(err);
+                    setErrorMessage(err.response.data);
+                    setErrorOpen(true);
+                    setTimeout(() => {}, 1500);
                   });
               }}
             >
@@ -167,12 +187,12 @@ function Header(props) {
                     .then((result) => {
                       setLogOut(true);
                       setTimeout(() => {
-                        history.length = 0;
                         history.push('/');
                       }, 1500);
                     })
                     .catch((err) => {
-                      console.log(err);
+                      setErrorMessage('Logout unsuccessful');
+                      setErrorOpen(true);
                     });
                 }}
               >
@@ -206,17 +226,43 @@ function Header(props) {
             >
               Signup
             </Button>
-            <Snackbar
-              open={openLogOut}
-              autoHideDuration={6000}
-              onClose={handleCloseLogOut}
-            >
-              <Alert onClose={handleCloseLogOut} severity='success'>
-                Logged Out Successfully
-              </Alert>
-            </Snackbar>
           </>
         )}
+        <Snackbar
+          open={openLogOut}
+          autoHideDuration={6000}
+          onClose={handleCloseLogOut}
+        >
+          <Alert onClose={handleCloseLogOut} severity='success'>
+            Logged Out Successfully
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={openError}
+          autoHideDuration={6000}
+          onClose={handleCloseError}
+        >
+          <Alert onClose={handleCloseError} severity='error'>
+            {errorMessage !== [] &&
+              errorMessage.map((msg) => {
+                return (
+                  <>
+                    <span>{msg}</span>
+                    <br></br>
+                  </>
+                );
+              })}
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={documentSaved}
+          autoHideDuration={6000}
+          onClose={handleCloseDocumentSave}
+        >
+          <Alert onClose={handleCloseDocumentSave} severity='success'>
+            Document Saved Successfully
+          </Alert>
+        </Snackbar>
       </div>
     </div>
   );

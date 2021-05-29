@@ -58,6 +58,7 @@ function Profile() {
   const [openDelete, setOpenDelete] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [id, setId] = useState('');
+  const [errorMessage, setErrorMessage] = useState([]);
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -110,7 +111,9 @@ function Profile() {
           setUpdateOpen(true);
         })
         .catch((err) => {
+          setErrorMessage(err.response.data);
           setOpenError(true);
+          setTimeout(() => {}, 1500);
         });
     } else {
       axios
@@ -263,7 +266,15 @@ function Profile() {
             onClose={handleCloseError}
           >
             <Alert severity='error' onClose={handleCloseError}>
-              Error !!!
+              {errorMessage !== [] &&
+                errorMessage.map((msg) => {
+                  return (
+                    <>
+                      <span>{msg}</span>
+                      <br></br>
+                    </>
+                  );
+                })}
             </Alert>
           </Snackbar>
           ;

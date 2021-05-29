@@ -12,8 +12,7 @@ function Documents() {
   //   setRefresh(!refresh);
   // };
   useEffect(() => {
-    console.log('Inside useEffect and token is ',token);
-    setToken()
+    console.log('Inside useEffect and token is ', token);
     axios
       .get(`/users/documents`, {
         headers: {
@@ -27,7 +26,7 @@ function Documents() {
       .catch((err) => {
         console.log(err);
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
   return (
     <div>

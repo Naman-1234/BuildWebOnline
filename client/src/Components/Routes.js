@@ -14,7 +14,7 @@ function Routes() {
         <Route path='/' exact component={FrontPage} />
         <Route path='/Login' component={Login} />
         <Route path='/SignUp' component={SignUp} />
-        <Route path='/users/Documents' component={Documents} />
+        <Route path='/Documents' component={Documents} />
         <Route path='/Profile' component={Profile} />
       </Switch>
     </Router>

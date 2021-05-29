@@ -150,7 +150,7 @@ function Header(props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  history.push('/users/Documents');
+                  history.push('/Documents');
                 }}
               >
                 My Documents

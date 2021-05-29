@@ -54,7 +54,7 @@ router.post("/add", auth, async (req, res) => {
       owner: id,
     });
 
-    file
+     file
       .save()
       .then((result) => {})
       .catch((err) => {

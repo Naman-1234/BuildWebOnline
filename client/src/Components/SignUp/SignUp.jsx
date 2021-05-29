@@ -1,63 +1,63 @@
-import React, { useState } from "react";
-import { Grid, makeStyles } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import history from "../History";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import "./Signup.scss";
+import React, { useState } from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import history from '../History';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import './Signup.scss';
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="outlined" {...props} />;
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: theme.spacing(2),
 
-    "& .MuiTextField-root": {
+    '& .MuiTextField-root': {
       margin: theme.spacing(1),
-      width: "300px",
+      width: '300px',
     },
-    "& .MuiButtonBase-root": {
+    '& .MuiButtonBase-root': {
       margin: theme.spacing(2),
     },
   },
 }));
 const genderItems = [
   {
-    value: "Male",
-    label: "Male",
+    value: 'Male',
+    label: 'Male',
   },
   {
-    value: "Female",
-    label: "Female",
+    value: 'Female',
+    label: 'Female',
   },
 ];
 
 function SignUp() {
   const classes = useStyles();
-  const [name, setName] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const handleCloseError = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
     setOpenError(false);
   };
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -76,7 +76,7 @@ function SignUp() {
       .then((result) => {
         setOpen(true);
         setTimeout(() => {
-          history.push("/");
+          history.push('/');
         }, 2500);
       })
       .catch((err) => {
@@ -88,43 +88,43 @@ function SignUp() {
   return (
     <>
       <Grid container>
-        <Grid item xs={6} className="left">
-          <img src="images/signup.png" alt="Profile" className="left__img" />
+        <Grid item xs={6} className='left'>
+          <img src='images/signup.png' alt='Profile' className='left__img' />
         </Grid>
-        <Grid item xs={6} className="right">
+        <Grid item xs={6} className='right'>
           <h1>Signup Now</h1>
           <form onSubmit={handleSubmit} className={classes.root}>
             <TextField
-              label="Name"
-              variant="outlined"
+              label='Name'
+              variant='outlined'
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <TextField
-              label="Enter Password"
-              variant="outlined"
+              label='Enter Password'
+              variant='outlined'
               required
-              type="password"
+              type='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             <TextField
-              label="Phone No."
-              variant="outlined"
+              label='Phone No.'
+              variant='outlined'
               required
               value={phoneNo}
               onChange={(e) => setPhoneNo(e.target.value)}
             />
             <TextField
-              id="standard-select-currency"
+              id='standard-select-currency'
               select
-              label="Select"
+              label='Select'
               value={gender}
               onChange={(e) => {
                 setGender(e.target.value);
               }}
-              helperText="Please select your Gender"
+              helperText='Please select your Gender'
             >
               {genderItems.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -134,18 +134,18 @@ function SignUp() {
             </TextField>
 
             <TextField
-              label="Email"
-              variant="outlined"
+              label='Email'
+              variant='outlined'
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <Button type="submit" variant="outlined" color="secondary">
+            <Button type='submit' variant='outlined' color='secondary'>
               SignUp
             </Button>
           </form>
           <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="success">
+            <Alert onClose={handleClose} severity='success'>
               SignUp Successful!!
             </Alert>
           </Snackbar>
@@ -154,7 +154,7 @@ function SignUp() {
             autoHideDuration={6000}
             onClose={handleCloseError}
           >
-            <Alert onClose={handleCloseError} severity="error">
+            <Alert onClose={handleCloseError} severity='error'>
               Error While Signup!!
             </Alert>
           </Snackbar>

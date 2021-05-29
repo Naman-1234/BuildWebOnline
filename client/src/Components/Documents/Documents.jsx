@@ -6,12 +6,14 @@ import useToken from '../../Utilities/CustomHooks/Token';
 function Documents() {
   const [documents, setdocuments] = useState([]);
   const [showDocuments, setShowDocuments] = useState(false);
-  const { token } = useToken();
-  const [refresh, setRefresh] = useState(false);
-  window.onbeforeunload = (event) => {
-    setRefresh(!refresh);
-  };
+  const { token, setToken } = useToken();
+  // const [refresh, setRefresh] = useState(false);
+  // window.onbeforeunload = (event) => {
+  //   setRefresh(!refresh);
+  // };
   useEffect(() => {
+    console.log('Inside useEffect and token is ',token);
+    setToken()
     axios
       .get(`/users/documents`, {
         headers: {
@@ -19,13 +21,14 @@ function Documents() {
         },
       })
       .then(async (result) => {
-        setdocuments(result.data);
-        setShowDocuments(true);
+        await setdocuments(result.data);
+        await setShowDocuments(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [token, refresh]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token]);
   return (
     <div>
       <h1

@@ -9,7 +9,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant='outlined' {...props} />;
+  return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('test1@gmail.com');
+  const [password, setPassword] = useState('1234567');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const { setToken } = useToken();

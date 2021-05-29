@@ -54,6 +54,8 @@ function Profile() {
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
   const [open, setOpen] = useState(false);
+  const [openUpdate, setUpdateOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [id, setId] = useState('');
   const handleCloseError = (event, reason) => {
@@ -70,6 +72,21 @@ function Profile() {
 
     setOpen(false);
   };
+  const handleUpdateClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setUpdateOpen(false);
+  };
+  const handleDeleteClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenDelete(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();
@@ -90,14 +107,10 @@ function Profile() {
           }
         )
         .then((result) => {
-          <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity='success'>Successfully Updated Profile</Alert>
-          </Snackbar>;
+          setUpdateOpen(true);
         })
         .catch((err) => {
-          <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity='error'>Enter correct Credentials Please!!</Alert>
-          </Snackbar>;
+          setOpenError(true);
         });
     } else {
       axios
@@ -108,16 +121,15 @@ function Profile() {
         })
         .then((result) => {
           removeToken();
-          <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity='success'>Successfully Updated Profile</Alert>
-          </Snackbar>;
-          history.length = 0;
-          history.push('/');
+          setOpenDelete(true);
+          setTimeout(() => {
+            history.length = 0;
+            history.push('/');
+          }, 1500);
         })
         .catch((err) => {
-          <Snackbar open={true} autoHideDuration={6000}>
-            <Alert severity='error'>Enter correct Credentials Please!!</Alert>
-          </Snackbar>;
+          setOpenError(true);
+          setTimeout(() => {}, 1500);
         });
     }
   };
@@ -225,6 +237,36 @@ function Profile() {
               </Alert>
             </Snackbar>
           </Grid>
+          <Snackbar
+            open={openUpdate}
+            autoHideDuration={6000}
+            onClose={handleUpdateClose}
+          >
+            <Alert severity='success' onClose={handleUpdateClose}>
+              Successfully Updated Profile
+            </Alert>
+          </Snackbar>
+          ;
+          <Snackbar
+            open={openDelete}
+            autoHideDuration={6000}
+            onClose={handleDeleteClose}
+          >
+            <Alert severity='success' onClose={handleDeleteClose}>
+              Successfully Deleted Profile
+            </Alert>
+          </Snackbar>
+          ;
+          <Snackbar
+            open={openError}
+            autoHideDuration={6000}
+            onClose={handleCloseError}
+          >
+            <Alert severity='error' onClose={handleCloseError}>
+              Error !!!
+            </Alert>
+          </Snackbar>
+          ;
         </Grid>
       )}
     </div>

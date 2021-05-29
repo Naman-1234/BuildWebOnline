@@ -1,42 +1,44 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    default: "Anonymous",
+    default: 'Anonymous',
     trim: true,
+    required: [true, 'Name is required'],
   },
   phoneNo: {
     type: String,
-    required: true,
+    required: [true, 'Phone number required'],
     trim: true,
-    length: 10,
+    minlength: [10, 'Phone number must be of length 10'],
+    maxlength: [10, 'Phone number must be of length 10'],
     validate(value) {
       if (!validator.isMobilePhone(value))
-        throw new Error("Phone Number not valid");
+        throw new Error('Phone Number not valid');
     },
   },
   gender: {
     type: String,
-    enum: ["Male", "Female"],
-    required: true,
+    enum: ['Male', 'Female'],
+    required: [true, 'Gender Required'],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, 'Email Required'],
     trim: true,
-    unique: true,
+    unique: [true, 'Email already taken'],
     validate(value) {
-      if (!validator.isEmail(value)) throw new Error("Email not valid");
+      if (!validator.isEmail(value)) throw new Error('Email not valid');
     },
   },
   password: {
     type: String,
-    minLength: 6,
-    required: true,
+    minLength: [6, 'Minimum Length of Password must be 6'],
+    required: [true, 'Password Required'],
     trim: true,
   },
   tokens: [
@@ -51,16 +53,16 @@ const userSchema = new mongoose.Schema({
 
 // Connecting it to Files Collection, owner acts as a virtual key to
 // connect user and files collections.
-userSchema.virtual("files", {
-  ref: "File",
-  localField: "_id",
-  foreignField: "owner",
+userSchema.virtual('files', {
+  ref: 'File',
+  localField: '_id',
+  foreignField: 'owner',
 });
 
 //Before saving we will use bcrypt to secure the password
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   const user = this;
-  if (user.isModified("password")) {
+  if (user.isModified('password')) {
     user.password = await bcrypt.hash(user.password, 8);
   }
   //Calling next Middleware function
@@ -73,10 +75,10 @@ userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({
     email: email,
   });
-  if (!user) throw new Error("No One Found");
+  if (!user) throw new Error('No One Found');
 
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) throw new Error("No One Found");
+  if (!passwordMatch) throw new Error('No One Found');
 
   return user;
 };
@@ -107,5 +109,5 @@ userSchema.methods.toJSON = function () {
   return publicUser;
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

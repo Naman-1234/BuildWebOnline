@@ -49,6 +49,7 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -80,7 +81,8 @@ function SignUp() {
         }, 2500);
       })
       .catch((err) => {
-        console.trace(err);
+        console.log(err.response.data);
+        setErrorMessage(err.response.data);
         setOpenError(true);
       });
   };
@@ -155,7 +157,15 @@ function SignUp() {
             onClose={handleCloseError}
           >
             <Alert onClose={handleCloseError} severity='error'>
-              Error While Signup!!
+              {errorMessage !== [] &&
+                errorMessage.map((message) => {
+                  return (
+                    <>
+                      <span>{message}</span>
+                      <br></br>
+                    </>
+                  );
+                })}
             </Alert>
           </Snackbar>
         </Grid>

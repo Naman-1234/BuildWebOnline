@@ -18,7 +18,7 @@ function Editors() {
           <style>${css}</style>
           <script>${javascript}</script>
           </html>`);
-    }, 100);
+    }, 1000);
     //This is a cleanUp Function so to not let any shaking effect while refreshing
     return () => {
       clearTimeout(timeout);
@@ -26,24 +26,6 @@ function Editors() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [html, css, javascript]);
 
-  // useEffect(() => {
-  //   const src = getsrc();
-  //   if (src) {
-  //     const srcdoc = getsrc();
-  //     let index1 = srcdoc.indexOf('<body>');
-  //     let index2 = srcdoc.indexOf('</body>');
-  //     if (index1 !== -1)
-  //       handleHtml(srcdoc.substr(index1 + 6, index2 - (index1 + 6)));
-  //     index1 = srcdoc.indexOf('<style>');
-  //     index2 = srcdoc.indexOf('</style>');
-  //     if (index1 !== -1)
-  //       handleCss(srcdoc.substr(index1 + 7, index2 - (index1 + 7)));
-  //     index1 = srcdoc.indexOf('<script>');
-  //     index2 = srcdoc.indexOf('</script>');
-  //     if (index1 !== -1)
-  //       handleJs(srcdoc.substr(index1 + 8, index2 - (index1 + 8)));
-  //   }
-  // }, []);
   return (
     <div className='editors'>
       <Editor language='html' value={html} onchange={handleHtml} name='html' />

@@ -2,10 +2,6 @@ import { useState } from 'react';
 function useDocument() {
   const getsrc = () => {
     const src = localStorage.getItem('srcdoc');
-    console.group();
-    console.log(src);
-    console.log(typeof src);
-    console.groupEnd();
     return src;
   };
   const [src, setsrc] = useState(getsrc());

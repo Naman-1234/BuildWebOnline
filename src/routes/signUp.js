@@ -9,7 +9,6 @@ router.post('/', async (req, res) => {
     res.status(201).send({ user, token });
   } catch (err) {
     let errorsArray = getErrors(err);
-    console.log(errorsArray);
     res.status(500).send(errorsArray);
   }
 });

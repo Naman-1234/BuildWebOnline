@@ -58,8 +58,6 @@ router.post('/add', auth, async (req, res) => {
     if (err.code && err.code == 11000)
       errorArray.push('Document name already taken');
     const answerFromUtil = getDocumentErrors(err);
-    console.log(answerFromUtil);
-    console.log('errorArray', errorArray);
     res.status(500).send(errorArray);
   }
 });

@@ -10,7 +10,6 @@ function useToken() {
   };
 
   const [token, setToken] = useState(getToken());
-  console.log('Inside useToken and token is ', getToken());
   const saveToken = (userToken) => {
     //Using localstorage so as to allow user logged in across windows.
     localStorage.setItem('token', userToken);

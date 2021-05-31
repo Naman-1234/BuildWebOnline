@@ -12,6 +12,7 @@ import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
+import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-function Header(props) {
+function Header() {
   const [isAuthorized, setAuthorized] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [name, setName] = useState('Untitled');
@@ -34,6 +35,7 @@ function Header(props) {
   const { token, removeToken } = useToken();
   const [errorMessage, setErrorMessage] = useState([]);
   const [documentSaved, setDocumentSaved] = useState(false);
+  const { getsrc } = useDocument();
   useEffect(() => {
     setTimeout(() => {
       if (token) setAuthorized(true);
@@ -116,13 +118,13 @@ function Header(props) {
               className={[classes.button, 'button'].join(' ')}
               startIcon={<SaveIcon />}
               onClick={() => {
-                const srcdoc = props.srcdoc;
+                const src = getsrc();
                 axios
                   .post(
                     `/users/documents/add`,
                     {
                       name: name,
-                      content: srcdoc,
+                      content: src,
                     },
                     {
                       headers: {

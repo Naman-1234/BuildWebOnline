@@ -7,11 +7,12 @@ function FrontPage() {
   const { getsrc } = useDocument();
   const [srcdoc, setSrcdoc] = useState('');
   useEffect(() => {
-    const timeInterval = setTimeout(() => {
-      setSrcdoc(getsrc());
+    const timeInterval = setInterval(() => {
+      const src = getsrc();
+      setSrcdoc(src);
     }, 1000);
     return () => {
-      clearTimeout(timeInterval);
+      clearInterval(timeInterval);
     };
   }, [srcdoc]);
 

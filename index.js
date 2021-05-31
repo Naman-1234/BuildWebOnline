@@ -1,6 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
-require('./src/db/mongoose');
+require('./db/mongoose');
 require('dotenv').config();
 const cors = require('cors');
 const rateLimiter = require('express-rate-limit');
@@ -15,11 +15,11 @@ const limiter = rateLimiter({
   },
 });
 //Routers
-const signUpRouter = require('./src/routes/signUp');
-const loginRouter = require('./src/routes/login');
-const logoutRouter = require('./src/routes/logout');
-const documentsRouter = require('./src/routes/documents');
-const profileRouter = require('./src/routes/profile');
+const signUpRouter = require('./routes/signUp');
+const loginRouter = require('./routes/login');
+const logoutRouter = require('./routes/logout');
+const documentsRouter = require('./routes/documents');
+const profileRouter = require('./routes/profile');
 
 //Middlewares
 app.use(express.json());

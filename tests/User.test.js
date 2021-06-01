@@ -20,7 +20,7 @@ test('should sign up a user', async () => {
       email: 'singup@gmail.com',
       password: 'signup-signup',
       gender: 'Male',
-      phoneNo: '12345678',
+      phoneNo: '1234567890',
     })
     .expect(201);
 });
@@ -73,7 +73,6 @@ test('Non-existent user should not  be able to fetch its profile', async () => {
 test('Authenticated user should be able to patch its profile', async () => {
   const patchedProfile = firstAuthenticatedUser;
   patchedProfile.name = 'patchedauth';
-  console.log(patchedProfile);
   const response = await request(app)
     .patch(`/users/me/${firstUserAuthenticatedId}`)
     .set('Authorization', `Bearer ${firstAuthenticatedUser.tokens[0].token}`)

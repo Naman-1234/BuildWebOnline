@@ -8,7 +8,7 @@ const { getDocumentErrors } = require('../utils/getDocumentErrors');
 router.get('/', auth, async (req, res) => {
   try {
     const user = req.user;
-    //Since the _id is of the form mongoose.Schema.Types.ObjectId
+    //Since the _id is of the form mongoose.Types.ObjectId
     //We need to convert it into string first.
     const id = user._id.toString();
     const allDocuments = await File.getAllDocuments(id);
@@ -20,21 +20,26 @@ router.get('/', auth, async (req, res) => {
 
 //To Get a Particular Document
 router.get('/:id', auth, async (req, res) => {
-  const id = req.params.id;
-  //Mongoose does the work of converting _id into string
-  const document = await File.findOne({
-    _id: id,
-  });
-  res.status(200).send(document);
+  try {
+    const id = req.params.id;
+    //Mongoose does the work of converting _id into string
+    const document = await File.findOne({
+      _id: id,
+    });
+    res.status(200).send(document);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
-router.delete('/delete/:id/', async (req, res) => {
+router.delete('/delete/:id/', auth, async (req, res) => {
   try {
     const file = await File.findByIdAndDelete(req.params.id);
     if (!file) res.status(404).send();
     else res.status(201).send({ file });
   } catch (e) {
     console.log(e);
+    res.status(500).send(e);
   }
 });
 
@@ -49,7 +54,6 @@ router.post('/add', auth, async (req, res) => {
       content: content,
       owner: id,
     });
-
     await file.save();
     res.status(201).send(file);
   } catch (err) {

@@ -21,7 +21,13 @@ const documentsRouter = require('./routes/documents');
 const profileRouter = require('./routes/profile');
 
 //Middlewares
+//THis is for recognizing the incoming request object as JSON object.
 app.use(express.json());
+//This is for recognizing the incoming request object as string or object.
+//These both methods are required for POST and Put requests
+//* One thing to also remember here is that express.json does not handle POST requests made by HTML form but
+//* express.urlencoded with extended false does.
+app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(cors());
 app.use(limiter);
@@ -32,6 +38,9 @@ app.use('/users/login', loginRouter);
 app.use('/users/logout', logoutRouter);
 app.use('/users/documents', documentsRouter);
 app.use('/users/me', profileRouter);
+app.use(function (err, req, res, next) {
+  next(createError(err));
+});
 //Adding error for any other path than this.
 if (process.env.NODE_ENV === 'production') {
   //Since a build folder will be generated as soon as it is in production.

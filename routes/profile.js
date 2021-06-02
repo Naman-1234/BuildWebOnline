@@ -88,7 +88,7 @@ router.post(
 router.get('/avatar', auth, async (req, res) => {
   try {
     if (!req.user || !req.user.avatar) {
-      let defaultImage = base64_encode('images/avatar.png');
+      let defaultImage = base64_encode('public/images/avatar.png');
       res.set('content-Type', 'image/jpg');
       res.status(200).send(defaultImage);
     } else {

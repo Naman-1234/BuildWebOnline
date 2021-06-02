@@ -72,13 +72,13 @@ router.post(
       })
       .png()
       .toBuffer();
-    console.log(req);
-    console.log(req.user);
     req.user.avatar = buffer;
     await req.user.save();
-    res.status(201).send();
+    res.status(201).send(req.user.avatar);
   },
   (err, req, res, next) => {
+    console.log(err);
+    //This path is required to parse HTML Coming from multer errors to JSON.
     //This path is for error handling in react and must contain these four parameters in this particular order in order to be used properly.
     res.status(500).send({
       error: err.message,

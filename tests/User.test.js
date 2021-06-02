@@ -111,3 +111,12 @@ test('Non-existent user should not  be able to fetch its profile', async () => {
     .send()
     .expect(401);
 });
+
+test('Authenticated User must be able to add profile picture', async () => {
+  const response = await request(app)
+    .post('/users/me/avatar')
+    .set('Authorization', `Bearer ${firstAuthenticatedUser.tokens[0].token}`)
+    .attach('UserProfile', 'tests/fixtures/avatar.png')
+    .expect(201);
+  expect(response.body).toEqual(expect.any(Buffer));
+});

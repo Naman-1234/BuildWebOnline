@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const auth = require('../middlewares/auth');
 const brcypt = require('bcryptjs');
+const upload = require('../middlewares/Upload');
+const sharp = require('sharp');
+const { base64_encode } = require('../utils/Utilities');
 const { getErrors } = require('../utils/gettingErrors');
 //To get the Profile of User
 router.get('/', auth, async (req, res) => {
@@ -53,6 +56,47 @@ router.delete('/:id', auth, async (req, res) => {
     res.status(201).send({ user, documents });
   } catch (err) {
     res.status(500).send(new Error(err));
+  }
+});
+
+//Uploading User Avatar
+router.post(
+  '/avatar',
+  auth,
+  upload.single('UserProfile'),
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({
+        height: 250,
+        width: 250,
+      })
+      .png()
+      .toBuffer();
+    console.log(req);
+    console.log(req.user);
+    req.user.avatar = buffer;
+    await req.user.save();
+    res.status(201).send();
+  },
+  (err, req, res, next) => {
+    //This path is for error handling in react and must contain these four parameters in this particular order in order to be used properly.
+    res.status(500).send({
+      error: err.message,
+    });
+  }
+);
+router.get('/avatar', auth, async (req, res) => {
+  try {
+    const user = req.user;
+    if (!user || !user.avatar) {
+      let defaultImage = base64_encode('images/avatar.png');
+      res.set('content-Type', 'image/jpg');
+      res.status(200).send(defaultImage);
+    }
+    res.set('content-Type', 'image/jpg');
+    res.status(200).send(user.avatar);
+  } catch (error) {
+    res.status(500).send(new Error(error));
   }
 });
 module.exports = router;

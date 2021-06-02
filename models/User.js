@@ -50,6 +50,9 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  avatar: {
+    type: Buffer,
+  },
 });
 
 // Connecting it to Files Collection, owner acts as a virtual key to

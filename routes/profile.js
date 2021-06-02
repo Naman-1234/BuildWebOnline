@@ -87,16 +87,16 @@ router.post(
 );
 router.get('/avatar', auth, async (req, res) => {
   try {
-    const user = req.user;
-    if (!user || !user.avatar) {
+    if (!req.user || !req.user.avatar) {
       let defaultImage = base64_encode('images/avatar.png');
       res.set('content-Type', 'image/jpg');
       res.status(200).send(defaultImage);
+    } else {
+      res.set('content-Type', 'image/jpg');
+      res.status(200).send(user.avatar);
     }
-    res.set('content-Type', 'image/jpg');
-    res.status(200).send(user.avatar);
   } catch (error) {
-    res.status(500).send(new Error(error));
+    res.status(500).send(error);
   }
 });
 module.exports = router;

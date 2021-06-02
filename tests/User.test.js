@@ -120,3 +120,19 @@ test('Authenticated User must be able to add profile picture', async () => {
     .expect(201);
   expect(response.body).toEqual(expect.any(Buffer));
 });
+
+test('Non-existent user should not be able to add profile picture', async () => {
+  await request(app).post('/users/me/avatar').send().expect(401);
+});
+
+test('Authenticated User must be able to add profile picture', async () => {
+  const response = await request(app)
+    .get('/users/me/avatar')
+    .send()
+    .expect(201);
+  expect(response.body).toEqual(expect.any(Buffer));
+});
+
+test('Non-existent user should not be able to get the profile pic', async () => {
+  await request(app).get('/users/me/avatar').send().expect(401);
+});

@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(logger('dev'));
 app.use(cors());
 app.use(limiter);
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users/signup', signUpRouter);
 app.use('/users/login', loginRouter);

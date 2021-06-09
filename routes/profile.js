@@ -92,10 +92,17 @@ router.get('/avatar', auth, async (req, res) => {
       res.set('content-Type', 'image/jpg');
       res.status(200).send(defaultImage);
     } else {
+      const buffer = req.user.avatar;
+      const avatarImage = buffer.toString('base64');
+
+      console.log(avatarImage);
+      console.log();
       res.set('content-Type', 'image/jpg');
-      res.status(200).send(user.avatar);
+      const url = URL.createObjectURL(avatarImage);
+      res.status(200).send(url);
     }
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });

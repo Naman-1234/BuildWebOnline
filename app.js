@@ -4,6 +4,7 @@ require('./db/mongoose');
 require('dotenv').config();
 const cors = require('cors');
 const rateLimiter = require('express-rate-limit');
+const createError = require('http-errors');
 const path = require('path');
 const app = express();
 const limiter = rateLimiter({
@@ -22,7 +23,18 @@ const profileRouter = require('./routes/profile');
 
 //Middlewares
 //THis is for recognizing the incoming request object as JSON object.
-app.use(express.json());
+app.use(
+  express.json({
+    limit: '50mb',
+    extended: true,
+  })
+);
+app.use(
+  express.urlencoded({
+    limit: '50mb',
+    extended: true,
+  })
+);
 //This is for recognizing the incoming request object as string or object.
 //These both methods are required for POST and Put requests
 //* One thing to also remember here is that express.json does not handle POST requests made by HTML form but

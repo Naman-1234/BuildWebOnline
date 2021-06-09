@@ -14,6 +14,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import axios from 'axios';
 import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
+import fetchImage from '../../api/fetchImage';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -35,13 +36,19 @@ function Header() {
   const { token, removeToken } = useToken();
   const [errorMessage, setErrorMessage] = useState([]);
   const [documentSaved, setDocumentSaved] = useState(false);
+  const [imageSrc, setImageSrc] = useState('images/logo.png');
   const { getsrc } = useDocument();
   useEffect(() => {
-    setTimeout(() => {
-      if (token) setAuthorized(true);
+    setTimeout(async () => {
+      if (token) {
+        setAuthorized(true);
+        const data = await fetchImage(token);
+        console.log(data);
+        setImageSrc(data);
+      }
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [imageSrc]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -57,7 +64,7 @@ function Header() {
   };
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
-      return;
+      // return;
     }
     setErrorOpen(false);
   };
@@ -69,11 +76,12 @@ function Header() {
   };
 
   const classes = useStyles();
+
   return (
     <div className='header'>
       <div className='header__left'>
         <img
-          src='images/logo.png'
+          src={imageSrc}
           alt='code'
           className='img'
           role='button'

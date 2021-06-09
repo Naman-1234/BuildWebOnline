@@ -7,6 +7,7 @@ import axios from 'axios';
 import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import FileBase from 'react-file-base64';
 import './Signup.scss';
 
 function Alert(props) {
@@ -42,11 +43,12 @@ const genderItems = [
 
 function SignUp() {
   const classes = useStyles();
-  const [name, setName] = useState('');
-  const [phoneNo, setPhoneNo] = useState('');
-  const [gender, setGender] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState('test');
+  const [phoneNo, setPhoneNo] = useState('1234567890');
+  const [gender, setGender] = useState('Male');
+  const [email, setEmail] = useState('test@gmail.com');
+  const [profileImage, setProfileImage] = useState('');
+  const [password, setPassword] = useState('testtest');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
@@ -73,6 +75,7 @@ function SignUp() {
         gender: gender,
         email: email,
         password: password,
+        profileImage: profileImage,
       })
       .then((result) => {
         setOpen(true);
@@ -142,6 +145,15 @@ function SignUp() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <div>
+              <FileBase
+                type='file'
+                multiple={false}
+                onDone={(base64) => {
+                  setProfileImage(base64[0].base64);
+                }}
+              />
+            </div>
             <Button type='submit' variant='outlined' color='secondary'>
               SignUp
             </Button>

@@ -75,7 +75,7 @@ function SignUp() {
         gender: gender,
         email: email,
         password: password,
-        profileImage: profileImage,
+        avatar: profileImage,
       })
       .then((result) => {
         setOpen(true);
@@ -150,7 +150,9 @@ function SignUp() {
                 type='file'
                 multiple={false}
                 onDone={(base64) => {
-                  setProfileImage(base64[0].base64);
+                  // setProfileImage(base64[0].base64);
+                  // console.log(base64.base64);
+                  setProfileImage(base64.base64);
                 }}
               />
             </div>

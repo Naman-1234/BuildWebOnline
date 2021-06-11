@@ -15,6 +15,7 @@ import axios from 'axios';
 import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
 import fetchImage from '../../api/fetchImage';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -45,6 +46,7 @@ function Header() {
         const data = await fetchImage(token);
         console.log(data);
         setImageSrc(data);
+        // await sleep(1000);
       }
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,7 +83,7 @@ function Header() {
     <div className='header'>
       <div className='header__left'>
         <img
-          src={imageSrc}
+          src="images/code.jpg"
           alt='code'
           className='img'
           role='button'
@@ -159,7 +161,7 @@ function Header() {
               onClick={handleClick}
             >
               <Avatar
-                src='images/avatar.png'
+                src={imageSrc}
                 alt='Avatar'
                 className='avatarImage'
               />

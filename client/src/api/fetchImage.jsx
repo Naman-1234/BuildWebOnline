@@ -7,7 +7,7 @@ const fetchImage = async (token, cb) => {
   });
   const bufferData = avatar.data;
   console.log(bufferData);
-  console.log(avatar);
+  console.log(avatar.data);
   return avatar.data;
 };
 export default fetchImage;

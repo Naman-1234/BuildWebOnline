@@ -89,17 +89,18 @@ router.get('/avatar', auth, async (req, res) => {
   try {
     if (!req.user || !req.user.avatar) {
       let defaultImage = base64_encode('public/images/avatar.png');
-      res.set('content-Type', 'image/jpg');
+      // res.set('content-Type', 'image/jpg');
       res.status(200).send(defaultImage);
     } else {
-      const buffer = req.user.avatar;
-      const avatarImage = buffer.toString('base64');
+      // const buffer = req.user.avatar;
+      // const avatarImage = buffer.toString('base64');
 
-      console.log(avatarImage);
-      console.log();
-      res.set('content-Type', 'image/jpg');
-      const url = URL.createObjectURL(avatarImage);
-      res.status(200).send(url);
+      // console.log(avatarImage);
+      // console.log();
+      // res.set('content-Type', 'image/jpg');
+      // const url = URL.createObjectURL(avatarImage);
+      // res.status(200).send(url);
+      res.status(200).send(req.user.avatar);
     }
   } catch (error) {
     console.log(error);

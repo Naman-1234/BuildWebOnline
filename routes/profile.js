@@ -22,8 +22,13 @@ router.get('/', auth, async (req, res) => {
 //To Update the user Profile
 router.patch('/:id', auth, async (req, res) => {
   try {
-    const { name, email, gender, phoneNo } = req.body;
+    const { name, email, gender, phoneNo, avatar } = req.body;
     //Not Passing req.body in our findByIdAndUpdate since that will make password as NULL
+    const avatarObject={};
+    if(avatar !== undefined)
+    {
+      avatarObject.avatar = avatar;
+    }
     const user = await User.findOneAndUpdate(
       req.params.id,
       {
@@ -31,6 +36,7 @@ router.patch('/:id', auth, async (req, res) => {
         email: email,
         gender: gender,
         phoneNo: phoneNo,
+        ...avatarObject   
       },
       {
         runValidators: true,

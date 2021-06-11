@@ -8,6 +8,7 @@ import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
+import FileBase from 'react-file-base64';
 import './Profile.scss';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
@@ -53,6 +54,7 @@ function Profile() {
   const [phoneNo, setPhoneNo] = useState('');
   const [gender, setGender] = useState('');
   const [email, setEmail] = useState('');
+  const [imageSrc, setImageSrc] = useState('');
   const [open, setOpen] = useState(false);
   const [openUpdate, setUpdateOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -87,7 +89,9 @@ function Profile() {
 
     setOpenDelete(false);
   };
-
+const uploadImage = (e)=>{
+  setImageSrc(e.target.file)
+}
   const handleSubmit = (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();
@@ -100,6 +104,7 @@ function Profile() {
             phoneNo: phoneNo,
             gender: gender,
             email: email,
+            avatar:imageSrc
           },
           {
             headers: {
@@ -207,12 +212,23 @@ function Profile() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <div>
+              <FileBase
+              type="file"
+              multiple={false}
+              onDone={
+                (base64)=>{
+                  setImageSrc(base64.base64)
+                }
+              } />
+              </div>
               <Grid
                 container
                 style={{
                   textAlign: 'center',
                 }}
               >
+    
                 <Grid item xs={6}>
                   <Button type='submit' variant='outlined' color='secondary'>
                     Update

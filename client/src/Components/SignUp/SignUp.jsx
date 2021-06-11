@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
@@ -9,27 +9,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import FileBase from 'react-file-base64';
 import './Signup.scss';
+import MakeStyle from "./Styles";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(2),
 
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '300px',
-    },
-    '& .MuiButtonBase-root': {
-      margin: theme.spacing(2),
-    },
-  },
-}));
 const genderItems = [
   {
     value: 'Male',
@@ -42,12 +27,13 @@ const genderItems = [
 ];
 
 function SignUp() {
-  const classes = useStyles();
+  
+  const classes = MakeStyle();
   const [name, setName] = useState('test');
   const [phoneNo, setPhoneNo] = useState('1234567890');
   const [gender, setGender] = useState('Male');
   const [email, setEmail] = useState('test@gmail.com');
-  const [profileImage, setProfileImage] = useState('');
+  const [avatar, setavatar] = useState('');
   const [password, setPassword] = useState('testtest');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -68,6 +54,7 @@ function SignUp() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+  
     axios
       .post(`/users/signup`, {
         name: name,
@@ -75,7 +62,7 @@ function SignUp() {
         gender: gender,
         email: email,
         password: password,
-        avatar: profileImage,
+        avatar: avatar,
       })
       .then((result) => {
         setOpen(true);
@@ -150,9 +137,9 @@ function SignUp() {
                 type='file'
                 multiple={false}
                 onDone={(base64) => {
-                  // setProfileImage(base64[0].base64);
+                  // setavatar(base64[0].base64);
                   // console.log(base64.base64);
-                  setProfileImage(base64.base64);
+                  setavatar(base64.base64);
                 }}
               />
             </div>

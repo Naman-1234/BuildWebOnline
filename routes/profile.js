@@ -65,6 +65,7 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+//This route is not used currently anywhere
 //Uploading User Avatar
 router.post(
   '/avatar',
@@ -91,6 +92,9 @@ router.post(
     });
   }
 );
+
+
+// This route is being used to return data
 router.get('/avatar', auth, async (req, res) => {
   try {
     if (!req.user || !req.user.avatar) {
@@ -98,14 +102,6 @@ router.get('/avatar', auth, async (req, res) => {
       // res.set('content-Type', 'image/jpg');
       res.status(200).send(defaultImage);
     } else {
-      // const buffer = req.user.avatar;
-      // const avatarImage = buffer.toString('base64');
-
-      // console.log(avatarImage);
-      // console.log();
-      // res.set('content-Type', 'image/jpg');
-      // const url = URL.createObjectURL(avatarImage);
-      // res.status(200).send(url);
       res.status(200).send(req.user.avatar);
     }
   } catch (error) {

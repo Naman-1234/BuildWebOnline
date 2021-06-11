@@ -89,9 +89,6 @@ function Profile() {
 
     setOpenDelete(false);
   };
-const uploadImage = (e)=>{
-  setImageSrc(e.target.file)
-}
   const handleSubmit = (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();

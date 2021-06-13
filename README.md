@@ -72,7 +72,8 @@ Through this I got to learn more about
        3. Handling authentication in Postman.
 
 ## I will continue working on this project and will add some more features:
-- Testing using Jest.
-- Giving Options of Logging through other Platforms like Google, Github etc if possible.
-- Setting Document Visible to all if user permits, to make others see that amazing project.
+- [X]   Improving UI
+- [X]   Testing using Jest.
+- [ ]   Option of Login with Google using Passport
+- [ ]  Setting Document Visible to all if user permits, to make others see that amazing project.
   

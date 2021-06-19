@@ -32,7 +32,7 @@ function Header() {
   const [documentSaved, setDocumentSaved] = useState(false);
   const [imageSrc, setImageSrc] = useState('images/logo.png');
   const { getsrc } = useDocument();
-  const { addDocument } = useDocumentHook();
+  const { addDocument, logOut } = useDocumentHook();
   useEffect(() => {
     setTimeout(async () => {
       if (token) {
@@ -164,22 +164,16 @@ function Header() {
               <MenuItem
                 onClick={() => {
                   removeToken();
-                  axios
-                    .get(`/users/logout`, {
-                      headers: {
-                        Authorization: token,
-                      },
-                    })
-                    .then((result) => {
-                      setLogOut(true);
-                      setTimeout(() => {
-                        history.push('/');
-                      }, 1500);
-                    })
-                    .catch((err) => {
-                      setErrorMessage('Logout unsuccessful');
-                      setErrorOpen(true);
-                    });
+                  const { msg } = logOut();
+                  if (msg === 'success') {
+                    setLogOut(true);
+                    setTimeout(() => {
+                      history.push('/');
+                    }, 1500);
+                  } else {
+                    setErrorMessage('Logout unsuccessful');
+                    setErrorOpen(true);
+                  }
                 }}
               >
                 Logout

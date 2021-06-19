@@ -68,11 +68,24 @@ function useUsers() {
       return { result: [], msg: 'err' };
     }
   };
+  const logOut = async () => {
+    try {
+      const result = await axios.get(`/users/logout`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      return { result, msg: 'success' };
+    } catch (err) {
+      return { result: err, msg: 'err' };
+    }
+  };
   return {
     updateProfile,
     deleteProfile,
     addUser,
     signUpUser,
+    logOut,
   };
 }
 export default useUsers;

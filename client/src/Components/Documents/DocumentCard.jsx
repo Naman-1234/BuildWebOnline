@@ -19,9 +19,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import useToken from '../../Utilities/CustomHooks/Token';
 import MakeStyle from "./Styles";
+import useDocument from '../../api/Documents';
+
 function DocumentCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const { token } = useToken();
+  const {deleteDocument}  = useDocument();
   const [open, setOpen] = useState(false);
   const classes = MakeStyle();
   const cardClasses = MakeStyle();
@@ -48,18 +51,19 @@ function DocumentCard(props) {
   };
   const handleDelete = () => {
     console.log('Made a request');
-    axios
-      .delete(`/users/documents/delete/${id}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(async (result) => {
-        console.log('Successfully deleted');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // axios
+    //   .delete(`/users/documents/delete/${id}`, {
+    //     headers: {
+    //       Authorization: token,
+    //     },
+    //   })
+    //   .then(async (result) => {
+    //     console.log('Successfully deleted');
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    deleteDocument(id);
   };
   return (
     <>

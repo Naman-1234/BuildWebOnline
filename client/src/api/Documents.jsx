@@ -1,8 +1,9 @@
 import axios from 'axios';
 import useToken from '../Utilities/CustomHooks/Token';
-function Document(){
+function useDocument(){
     const {token} = useToken();
-    const deleteDocument = (id)=>{
+    const deleteDocument= (id)=>{
+    
     axios
     .delete(`/users/documents/delete/${id}`, {
       headers: {
@@ -15,12 +16,10 @@ function Document(){
     .catch((err) => {
       console.log(err);
     });
-    }
-    
-    
+}
 
 return {
     deleteDocument
 }
 }
-export default Document;
+export default useDocument;

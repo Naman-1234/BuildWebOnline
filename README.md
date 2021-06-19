@@ -45,6 +45,9 @@ Backend:
     10. http-proxy-middleware- To create a proxy for Connecting frontend and Backend.
     11. concurrently- To start Frontend and Backend servers simultaneously.
 - Linters: eslint
+
+Testing
+- Framework: Jest
 ```
 
 ## Running Locally

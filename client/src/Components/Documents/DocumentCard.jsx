@@ -16,7 +16,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
 import useToken from '../../Utilities/CustomHooks/Token';
 import MakeStyle from "./Styles";
 import useDocument from '../../api/Documents';
@@ -51,18 +50,6 @@ function DocumentCard(props) {
   };
   const handleDelete = () => {
     console.log('Made a request');
-    // axios
-    //   .delete(`/users/documents/delete/${id}`, {
-    //     headers: {
-    //       Authorization: token,
-    //     },
-    //   })
-    //   .then(async (result) => {
-    //     console.log('Successfully deleted');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     deleteDocument(id);
   };
   return (

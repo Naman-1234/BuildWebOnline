@@ -17,9 +17,21 @@ function useDocument(){
       console.log(err);
     });
 }
-
+const getDocuments = async ()=>{
+  const result = await axios
+      .get(`/users/documents`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+  if(result)
+  return result.data;
+  else
+  return new Error('Got an error');
+}
 return {
-    deleteDocument
+    deleteDocument,
+    getDocuments
 }
 }
 export default useDocument;

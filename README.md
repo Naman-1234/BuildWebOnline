@@ -1,8 +1,20 @@
-# About
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/63748249/122639234-693ca580-d116-11eb-978f-574866e06c4d.png" alt="Logo" height="200" width="300"></img>
+</p>
+
+# Table of Contents:
+    - About
+    - Demonstration
+    - Tech Stack Used
+    - Running Locally
+    - Learning
+    - TODO
+
+## About
 BuildWebOnline is a webApp on which anyone can come and start building awesome webpages. As generally said, "Talk is Cheap show me the code". Please check the below demonstration for clarity.
 
 ## Demonstration:
-This is a demonstration of the App showing Real time changes of the page being made by the user.
+This is a demonstration of the App showing Real time changes of the page being made by the user. Here Editors are for HTML, CSS and Javascript. Then its output as a webpage is shown in the iframe used below.
 ![Working](https://user-images.githubusercontent.com/63748249/122638995-157d8c80-d115-11eb-82cc-565490424d10.gif)
 
 

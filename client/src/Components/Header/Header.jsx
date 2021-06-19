@@ -16,6 +16,7 @@ import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
 import fetchImage from '../../api/fetchImage';
 import MakeStyle from './Styles';
+import useDocumentHook from '../../api/Documents';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
@@ -31,6 +32,7 @@ function Header() {
   const [documentSaved, setDocumentSaved] = useState(false);
   const [imageSrc, setImageSrc] = useState('images/logo.png');
   const { getsrc } = useDocument();
+  const { addDocument } = useDocumentHook();
   useEffect(() => {
     setTimeout(async () => {
       if (token) {
@@ -75,7 +77,7 @@ function Header() {
     <div className='header'>
       <div className='header__left'>
         <img
-          src="images/code.jpg"
+          src='images/code.jpg'
           alt='code'
           className='img'
           role='button'
@@ -121,28 +123,12 @@ function Header() {
               startIcon={<SaveIcon />}
               onClick={() => {
                 const src = getsrc();
-                axios
-                  .post(
-                    `/users/documents/add`,
-                    {
-                      name: name,
-                      content: src,
-                    },
-                    {
-                      headers: {
-                        Authorization: token,
-                      },
-                    }
-                  )
-                  .then((result) => {
-                    console.log('Success in Adding document');
-                    setDocumentSaved(true);
-                  })
-                  .catch((err) => {
-                    setErrorMessage(err.response.data);
-                    setErrorOpen(true);
-                    setTimeout(() => {}, 1500);
-                  });
+                const result = addDocument(name, src);
+                if (result === 'Got an error in adding document') {
+                  setErrorMessage(result);
+                  setErrorOpen(true);
+                  setTimeout(() => {}, 1500);
+                } else setDocumentSaved(true);
               }}
             >
               Save
@@ -152,11 +138,7 @@ function Header() {
               aria-haspopup='true'
               onClick={handleClick}
             >
-              <Avatar
-                src={imageSrc}
-                alt='Avatar'
-                className='avatarImage'
-              />
+              <Avatar src={imageSrc} alt='Avatar' className='avatarImage' />
             </Button>
             <Menu
               id='simple-menu'

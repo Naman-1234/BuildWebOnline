@@ -1,8 +1,6 @@
-
-@mixin customFlex($direction, $justify:"stretch",$align:"stretch")
-{
-display: flex;
-flex-direction: $direction;
-align-items: $align;
-justify-content: $justify;
+@mixin customFlex($direction: 'row', $justify: 'stretch', $align: 'stretch') {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
 }

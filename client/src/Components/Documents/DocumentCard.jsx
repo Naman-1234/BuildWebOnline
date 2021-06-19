@@ -15,7 +15,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import useToken from '../../Utilities/CustomHooks/Token';
 import MakeStyle from './Styles';
 import useDocument from '../../api/Documents';
 

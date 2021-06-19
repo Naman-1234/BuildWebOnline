@@ -6,6 +6,7 @@ import useDocument from '../../Utilities/CustomHooks/Document';
 function FrontPage() {
   const { getsrc } = useDocument();
   const [srcdoc, setSrcdoc] = useState('');
+  // Page is being saved every 1 sec, into localStorage,
   useEffect(() => {
     const timeInterval = setInterval(() => {
       const src = getsrc();

@@ -1,7 +1,9 @@
-@import "../../Utilities/mixins";
+@import '../../Utilities/mixins';
 .header {
   min-height: 10vh;
   max-height: 10vh;
+  //First para is for direction,
+  //2nd for justify-content,3rd for alignItems
   @include customFlex(row, space-between, center);
   background: #1a1b1f;
   color: #fff;
@@ -9,6 +11,8 @@
     color: #fff;
   }
   &__left {
+    //First para is for direction,
+    //2nd for justify-content,3rd for alignItems
     @include customFlex(row, space-around, center);
     padding: 5px 15px 15px 25px;
     img {
@@ -32,6 +36,8 @@
   }
 
   &__right {
+    //First para is for direction,
+    //2nd for justify-content,3rd for alignItems
     @include customFlex(row, space-around, center);
     .button {
       margin: 0px 15px 15px 0px;

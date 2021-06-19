@@ -1,10 +1,13 @@
-@import "../../Utilities/mixins";
+@import '../../Utilities/mixins';
 .editor {
   border: 15px solid #333642;
   border-top: 0;
   border-right: 0;
   flex-grow: 1;
   flex-basis: 0;
+  //First para is for direction,
+  //2nd for justify-content,3rd for alignItems
+  //Since only 1st para is being passed,rest of the two will be taken default which is default.
   @include customFlex(column);
   .codeMirror-editor {
     height: 100% !important;

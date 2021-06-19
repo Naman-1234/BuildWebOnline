@@ -4,6 +4,7 @@ import { useState } from 'react';
 function useToken() {
   const getToken = () => {
     const tokenString = localStorage.getItem('token');
+    //Since it is being stored as a string,not a object.There is no need to parse that as below.
     // const tokenJSON = JSON.parse(tokenString);
     //Using Optional Chaining Operator to not let undefined. circumstance happen
     return tokenString;
@@ -15,10 +16,12 @@ function useToken() {
     localStorage.setItem('token', userToken);
     setToken(userToken);
   };
+  // To remove token in case of LogOut.
   const removeToken = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
   };
+
   return {
     setToken: saveToken,
     token,

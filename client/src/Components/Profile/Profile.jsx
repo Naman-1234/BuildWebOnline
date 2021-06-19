@@ -47,7 +47,7 @@ function Profile() {
   const [openError, setOpenError] = useState(false);
   const [id, setId] = useState('');
   const [errorMessage, setErrorMessage] = useState([]);
-  const { updateProfile } = useUsers();
+  const { updateProfile, deleteProfile } = useUsers();
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -94,24 +94,18 @@ function Profile() {
         setTimeout(() => {}, 1500);
       } else setUpdateOpen(true);
     } else {
-      axios
-        .delete(`/users/me/${id}`, {
-          headers: {
-            Authorization: token,
-          },
-        })
-        .then((result) => {
-          removeToken();
-          setOpenDelete(true);
-          setTimeout(() => {
-            history.length = 0;
-            history.push('/');
-          }, 1500);
-        })
-        .catch((err) => {
-          setOpenError(true);
-          setTimeout(() => {}, 1500);
-        });
+      const { result, msg } = await deleteProfile(id);
+      if (msg === 'success') {
+        removeToken();
+        setOpenDelete(true);
+        setTimeout(() => {
+          history.length = 0;
+          history.push('/');
+        }, 1500);
+      } else {
+        setOpenError(true);
+        setTimeout(() => {}, 1500);
+      }
     }
   };
 

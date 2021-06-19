@@ -25,8 +25,23 @@ function useUsers() {
       return { result: [], msg: 'err' };
     }
   };
+
+  const deleteProfile = async (id) => {
+    try {
+      const result = await axios.delete(`/users/me/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      return { result: result.data, msg: 'success' };
+    } catch (err) {
+      console.log(err);
+      return { result: [], msg: 'err' };
+    }
+  };
   return {
     updateProfile,
+    deleteProfile,
   };
 }
 export default useUsers;

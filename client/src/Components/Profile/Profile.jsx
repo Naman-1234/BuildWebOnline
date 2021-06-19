@@ -9,8 +9,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
 import FileBase from 'react-file-base64';
+import useUsers from '../../api/Users';
 import './Profile.scss';
-import MakeStyle from "./Styles";
+import MakeStyle from './Styles';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
@@ -46,6 +47,7 @@ function Profile() {
   const [openError, setOpenError] = useState(false);
   const [id, setId] = useState('');
   const [errorMessage, setErrorMessage] = useState([]);
+  const { updateProfile } = useUsers();
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -74,34 +76,23 @@ function Profile() {
 
     setOpenDelete(false);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const btnName = e.nativeEvent.submitter.innerText.toLowerCase();
     if (btnName === 'update') {
-      axios
-        .patch(
-          `/users/me/${id}`,
-          {
-            name: name,
-            phoneNo: phoneNo,
-            gender: gender,
-            email: email,
-            avatar:imageSrc
-          },
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        )
-        .then((result) => {
-          setUpdateOpen(true);
-        })
-        .catch((err) => {
-          setErrorMessage(err.response.data);
-          setOpenError(true);
-          setTimeout(() => {}, 1500);
-        });
+      const { result, msg } = await updateProfile(
+        id,
+        name,
+        phoneNo,
+        gender,
+        email,
+        imageSrc
+      );
+      if (msg === 'err') {
+        setErrorMessage(result);
+        setOpenError(true);
+        setTimeout(() => {}, 1500);
+      } else setUpdateOpen(true);
     } else {
       axios
         .delete(`/users/me/${id}`, {
@@ -195,14 +186,13 @@ function Profile() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div>
-              <FileBase
-              type="file"
-              multiple={false}
-              onDone={
-                (base64)=>{
-                  setImageSrc(base64.base64)
-                }
-              } />
+                <FileBase
+                  type='file'
+                  multiple={false}
+                  onDone={(base64) => {
+                    setImageSrc(base64.base64);
+                  }}
+                />
               </div>
               <Grid
                 container
@@ -210,7 +200,6 @@ function Profile() {
                   textAlign: 'center',
                 }}
               >
-    
                 <Grid item xs={6}>
                   <Button type='submit' variant='outlined' color='secondary'>
                     Update

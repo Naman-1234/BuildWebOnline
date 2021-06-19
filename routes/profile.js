@@ -24,9 +24,8 @@ router.patch('/:id', auth, async (req, res) => {
   try {
     const { name, email, gender, phoneNo, avatar } = req.body;
     //Not Passing req.body in our findByIdAndUpdate since that will make password as NULL
-    const avatarObject={};
-    if(avatar !== undefined)
-    {
+    const avatarObject = {};
+    if (avatar !== '' && avatar !== undefined) {
       avatarObject.avatar = avatar;
     }
     const user = await User.findOneAndUpdate(
@@ -36,7 +35,7 @@ router.patch('/:id', auth, async (req, res) => {
         email: email,
         gender: gender,
         phoneNo: phoneNo,
-        ...avatarObject   
+        ...avatarObject,
       },
       {
         runValidators: true,
@@ -92,7 +91,6 @@ router.post(
     });
   }
 );
-
 
 // This route is being used to return data
 router.get('/avatar', auth, async (req, res) => {

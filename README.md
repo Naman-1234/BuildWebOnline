@@ -1,5 +1,5 @@
 # About
-BuildWebOnline is a webApp on which anyone can come and start building awesome webpages.Since it will be stored online, you don't need to worry about your documents even if your device gets damaged or something.
+BuildWebOnline is a webApp on which anyone can come and start building awesome webpages. As generally said, "Talk is Cheap show me the code". Please check the below demonstration for clarity.
 
 ## Demonstration:
 This is a demonstration of the App showing Real time changes of the page being made by the user.

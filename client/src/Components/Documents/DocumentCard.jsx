@@ -18,23 +18,13 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 import useToken from '../../Utilities/CustomHooks/Token';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-}));
-
+import MakeStyle from "./Styles";
 function DocumentCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const { token } = useToken();
   const [open, setOpen] = useState(false);
-  const classes = useStyles();
-  const cardClasses = useStyles();
+  const classes = MakeStyle();
+  const cardClasses = MakeStyle();
   const document = props.document;
   const id = document._id;
   let date = new Date(document.updatedAt);

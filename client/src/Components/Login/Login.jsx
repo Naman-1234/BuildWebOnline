@@ -7,32 +7,15 @@ import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
-
+import MakeStyle from "./Styles";
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(2),
-
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '300px',
-    },
-    '& .MuiButtonBase-root': {
-      margin: theme.spacing(2),
-    },
-  },
-}));
 
 function Login() {
-  const classes = useStyles();
-  const [email, setEmail] = useState('test1@gmail.com');
-  const [password, setPassword] = useState('1234567');
+  const classes = MakeStyle();
+  const [email, setEmail] = useState('test@gmail.com');
+  const [password, setPassword] = useState('testtest');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const { setToken } = useToken();

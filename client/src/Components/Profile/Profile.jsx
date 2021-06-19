@@ -10,26 +10,11 @@ import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
 import FileBase from 'react-file-base64';
 import './Profile.scss';
+import MakeStyle from "./Styles";
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(2),
 
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '300px',
-    },
-    '& .MuiButtonBase-root': {
-      margin: theme.spacing(2),
-    },
-  },
-}));
 const useContainerStyles = makeStyles((theme) => ({
   root: {
     maxHeight: '100vh',
@@ -48,7 +33,7 @@ const genderItems = [
 function Profile() {
   const [showProfile, setShowProfile] = useState(false);
   const { token, removeToken } = useToken();
-  const classes = useStyles();
+  const classes = MakeStyle();
   const containerClasses = useContainerStyles();
   const [name, setName] = useState('');
   const [phoneNo, setPhoneNo] = useState('');

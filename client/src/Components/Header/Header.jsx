@@ -15,15 +15,7 @@ import axios from 'axios';
 import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
 import fetchImage from '../../api/fetchImage';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
-}));
+import MakeStyle from './Styles';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
@@ -77,7 +69,7 @@ function Header() {
     setDocumentSaved(false);
   };
 
-  const classes = useStyles();
+  const classes = MakeStyle();
 
   return (
     <div className='header'>

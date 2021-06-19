@@ -94,7 +94,7 @@ function Profile() {
         setTimeout(() => {}, 1500);
       } else setUpdateOpen(true);
     } else {
-      const { result, msg } = await deleteProfile(id);
+      const { msg } = await deleteProfile(id);
       if (msg === 'success') {
         removeToken();
         setOpenDelete(true);

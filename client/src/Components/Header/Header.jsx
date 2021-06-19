@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './Header.scss';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +10,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios';
 import useDocument from '../../Utilities/CustomHooks/Document';
 import useToken from '../../Utilities/CustomHooks/Token';
 import fetchImage from '../../api/fetchImage';

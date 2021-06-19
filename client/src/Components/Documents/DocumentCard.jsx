@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -17,13 +16,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useToken from '../../Utilities/CustomHooks/Token';
-import MakeStyle from "./Styles";
+import MakeStyle from './Styles';
 import useDocument from '../../api/Documents';
 
 function DocumentCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { token } = useToken();
-  const {deleteDocument}  = useDocument();
+  const { deleteDocument } = useDocument();
   const [open, setOpen] = useState(false);
   const classes = MakeStyle();
   const cardClasses = MakeStyle();

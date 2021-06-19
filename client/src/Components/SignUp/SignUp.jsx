@@ -9,8 +9,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import FileBase from 'react-file-base64';
 import './Signup.scss';
-import MakeStyle from "./Styles";
-
+import MakeStyle from './Styles';
+import useUsers from '../../api/Users';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
@@ -27,7 +27,6 @@ const genderItems = [
 ];
 
 function SignUp() {
-  
   const classes = MakeStyle();
   const [name, setName] = useState('test');
   const [phoneNo, setPhoneNo] = useState('1234567890');
@@ -38,6 +37,7 @@ function SignUp() {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);
+  const { signUpUser } = useUsers();
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -52,29 +52,26 @@ function SignUp() {
 
     setOpen(false);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-  
-    axios
-      .post(`/users/signup`, {
-        name: name,
-        phoneNo: phoneNo,
-        gender: gender,
-        email: email,
-        password: password,
-        avatar: avatar,
-      })
-      .then((result) => {
-        setOpen(true);
-        setTimeout(() => {
-          history.push('/');
-        }, 2500);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        setErrorMessage(err.response.data);
-        setOpenError(true);
-      });
+
+    const { result, msg } = await signUpUser(
+      name,
+      phoneNo,
+      gender,
+      email,
+      password,
+      avatar
+    );
+    if (msg === 'success') {
+      setOpen(true);
+      setTimeout(() => {
+        history.push('/');
+      }, 2500);
+    } else {
+      setErrorMessage(result);
+      setOpenError(true);
+    }
   };
 
   return (

@@ -39,9 +39,40 @@ function useUsers() {
       return { result: [], msg: 'err' };
     }
   };
+
+  const addUser = async (email, password) => {
+    try {
+      const result = await axios.post(`/users/login`, {
+        email: email,
+        password: password,
+      });
+      return { result, msg: 'success' };
+    } catch (err) {
+      return { result: err, msg: 'err' };
+    }
+  };
+
+  const signUpUser = async (name, phoneNo, gender, email, password, avatar) => {
+    try {
+      const result = await axios.post(`/users/signup`, {
+        name: name,
+        phoneNo: phoneNo,
+        gender: gender,
+        email: email,
+        password: password,
+        avatar: avatar,
+      });
+      return { result, msg: 'success' };
+    } catch (err) {
+      console.log(err);
+      return { result: [], msg: 'err' };
+    }
+  };
   return {
     updateProfile,
     deleteProfile,
+    addUser,
+    signUpUser,
   };
 }
 export default useUsers;

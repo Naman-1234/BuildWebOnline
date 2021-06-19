@@ -7,7 +7,8 @@ import history from '../History';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import useToken from '../../Utilities/CustomHooks/Token';
-import MakeStyle from "./Styles";
+import MakeStyle from './Styles';
+import useUsers from '../../api/Users';
 function Alert(props) {
   return <MuiAlert elevation={6} variant='filled' {...props} />;
 }
@@ -19,6 +20,7 @@ function Login() {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const { setToken } = useToken();
+  const { addUser } = useUsers();
   const handleCloseError = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -33,25 +35,18 @@ function Login() {
 
     setOpen(false);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post(`/users/login`, {
-        email: email,
-        password: password,
-      })
-      .then((result) => {
-        const data = result.data;
-        const token = data?.token;
-        setOpen(true);
-        setToken(token);
-        setTimeout(() => {
-          history.push('/');
-        }, 1500);
-      })
-      .catch((err) => {
-        setOpenError(true);
-      });
+    const { result, msg } = await addUser(email, password);
+    if (msg === 'success') {
+      const data = result.data;
+      const token = data?.token;
+      setOpen(true);
+      setToken(token);
+      setTimeout(() => {
+        history.push('/');
+      }, 1500);
+    } else setOpenError(true);
   };
   return (
     <>

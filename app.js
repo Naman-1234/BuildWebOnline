@@ -5,6 +5,7 @@ require('dotenv').config();
 const cors = require('cors');
 const rateLimiter = require('express-rate-limit');
 const createError = require('http-errors');
+const helmet = require('helmet');
 const path = require('path');
 const app = express();
 const limiter = rateLimiter({
@@ -44,6 +45,7 @@ app.use(logger('dev'));
 app.use(cors());
 app.use(limiter);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(helmet());
 
 app.use('/users/signup', signUpRouter);
 app.use('/users/login', loginRouter);

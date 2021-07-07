@@ -26,7 +26,7 @@ function FrontPage() {
     <div className='frontPage'>
       <Header />
       <div className='frontPage__middle'>
-        <Editors srcdoc={srcdoc}/>
+        <Editors/>
       </div>
 
       <div className='frontPage__iframe'>

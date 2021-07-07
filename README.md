@@ -15,8 +15,8 @@
 
 ## About
 
-📌 This is an web app consisting of several text Editors specifically for HTML,CSS and JavaScript.
-📌 Real Time Editor and Output makes front Web Development absorbing and peaceful.
+📌 This is an web app consisting of several text Editors specifically for HTML,CSS and JavaScript.<br>
+📌 Real Time Editor and Output makes front Web Development absorbing and peaceful.<br>
 📌 Neither boilerplate code nor linking files is required. You can start coding right away. 😇
 
 ## Demonstration:

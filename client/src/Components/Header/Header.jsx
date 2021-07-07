@@ -36,7 +36,7 @@ function Header() {
       if (token) {
         setAuthorized(true);
         const data = await fetchImage(token);
-        console.log(data);
+        // console.log(data);
         setImageSrc(data);
         // await sleep(1000);
       }

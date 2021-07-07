@@ -27,12 +27,12 @@ const genderItems = [
 
 function SignUp() {
   const classes = MakeStyle();
-  const [name, setName] = useState('test');
-  const [phoneNo, setPhoneNo] = useState('1234567890');
-  const [gender, setGender] = useState('Male');
-  const [email, setEmail] = useState('test@gmail.com');
+  const [name, setName] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
   const [avatar, setavatar] = useState('');
-  const [password, setPassword] = useState('testtest');
+  const [password, setPassword] = useState('');
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [errorMessage, setErrorMessage] = useState([]);

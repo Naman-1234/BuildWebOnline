@@ -45,6 +45,7 @@ router.patch('/:id', auth, async (req, res) => {
     res.status(201).send(user);
   } catch (err) {
     let errorsArray = getErrors(err);
+    console.log(err);
     res.status(500).send(errorsArray);
   }
 });

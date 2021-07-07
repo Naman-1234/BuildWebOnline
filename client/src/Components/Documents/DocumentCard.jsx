@@ -66,6 +66,9 @@ function DocumentCard(props) {
                   aria-controls='simple-menu'
                   aria-haspopup='true'
                   onClick={handleClick}
+                  // onClick={()=>{
+                  //   alert('clicked');
+                  // }}
                 >
                   <MoreVertIcon />
                 </IconButton>
@@ -126,9 +129,14 @@ function DocumentCard(props) {
           <Link
             to={{
               pathname: '/',
-              state: {
-                srcdoc: document.content,
-              },
+              // state: {
+              //   srcdoc: document.content,
+              // },
+              
+            }}
+            onClick={()=>{
+              localStorage.setItem('srcdoc',document.content)
+              console.log(document.content)
             }}
           >
             <CardMedia

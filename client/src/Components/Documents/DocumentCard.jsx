@@ -26,6 +26,7 @@ function DocumentCard(props) {
   const cardClasses = MakeStyle();
   const document = props.document;
   const id = document._id;
+  const name=document.name;
   let date = new Date(document.updatedAt);
   date = date.toUTCString();
   const handleClick = (event) => {
@@ -128,7 +129,7 @@ function DocumentCard(props) {
           />
           <Link
             to={{
-              pathname: '/',
+              pathname: '/Edit',
               // state: {
               //   srcdoc: document.content,
               // },
@@ -136,6 +137,7 @@ function DocumentCard(props) {
             }}
             onClick={()=>{
               localStorage.setItem('srcdoc',document.content)
+              localStorage.setItem('name',name)
               console.log(document.content)
             }}
           >

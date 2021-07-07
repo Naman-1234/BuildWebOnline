@@ -66,5 +66,29 @@ router.post('/add', auth, async (req, res) => {
   }
 });
 
+router.patch('/add',auth,async(req,res)=>{
+  try {
+    const user = req.user;
+    const id = user._id.toString();
+    const { name, content } = req.body;
+    const file = await File.findOneAndUpdate(id,{
+      name:name,
+      content:content,
+      owner:id
+    },{
+      runValidators:true
+    })
+    if(!file)
+    res.status(401).send('No file found')
+    res.status(201).send(file);
+  } catch (err) {
+    console.log(err);
+    let errorArray = [];
+    if (err.code && err.code == 11000)
+      errorArray.push('Document name already taken');
+    const answerFromUtil = getDocumentErrors(err);
+    res.status(500).send(errorArray);
+  }
+})
 
 module.exports = router;

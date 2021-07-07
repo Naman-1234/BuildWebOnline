@@ -60,10 +60,31 @@ function useDocument() {
     return new Error('Got an error in adding document');
   };
 
+  const updateDocument = async (name, src) => {
+    const result = axios.patch(
+      `/users/documents/add`,
+      {
+        name: name,
+        content: src,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+    if (result) {
+      console.log('success in adding document');
+      return result;
+    }
+    return new Error('Got an error in adding document');
+  };
+
   return {
     deleteDocument,
     getDocuments,
     addDocument,
+    updateDocument
   };
 }
 export default useDocument;

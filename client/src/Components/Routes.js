@@ -16,6 +16,7 @@ function Routes() {
         <Route path='/SignUp' component={SignUp} />
         <Route path='/Documents' component={Documents} />
         <Route path='/Profile' component={Profile} />
+        <Route path="/Edit" component={FrontPage} />
       </Switch>
     </Router>
   );

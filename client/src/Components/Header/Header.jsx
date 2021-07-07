@@ -30,7 +30,8 @@ function Header() {
   const [documentSaved, setDocumentSaved] = useState(false);
   const [imageSrc, setImageSrc] = useState('images/logo.png');
   const { getsrc } = useDocument();
-  const { addDocument, logOut } = useDocumentHook();
+  const { addDocument, logOut, updateDocument } = useDocumentHook();
+  const pathName=window.location.pathname;
   useEffect(() => {
     setTimeout(async () => {
       if (token) {
@@ -39,6 +40,12 @@ function Header() {
         // console.log(data);
         setImageSrc(data);
         // await sleep(1000);
+      }
+      const pathName = window.location.pathname;
+      if(pathName==='/Edit')
+      {
+        const documentName= localStorage.getItem('name')
+        setName(documentName);
       }
     }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,7 +128,11 @@ function Header() {
               startIcon={<SaveIcon />}
               onClick={() => {
                 const src = getsrc();
-                const result = addDocument(name, src);
+                let result;
+                if(pathName==='/Edit')
+                result = updateDocument(name,src)
+                else
+                result = addDocument(name, src);
                 if (result === 'Got an error in adding document') {
                   setErrorMessage(result);
                   setErrorOpen(true);

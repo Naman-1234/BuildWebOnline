@@ -40,7 +40,7 @@ app.use(
 //These both methods are required for POST and Put requests
 //* One thing to also remember here is that express.json does not handle POST requests made by HTML form but
 //* express.urlencoded with extended false does.
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(logger('dev'));
 app.use(cors());
 app.use(limiter);

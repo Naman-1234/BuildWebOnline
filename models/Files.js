@@ -27,7 +27,7 @@ const fileSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-
+// Methods on statistics is used by Model in codebase.
 fileSchema.statics.getAllDocuments = async (id) => {
   const allDocuments = await File.find({
     owner: id,

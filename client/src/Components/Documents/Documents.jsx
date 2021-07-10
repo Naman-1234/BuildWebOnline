@@ -9,6 +9,8 @@ function Documents() {
   const { token } = useToken();
   const { getDocuments } = useDocument();
 
+  // This is to make an api call to fetch documents from the backend. After that all the
+  //  documents will be mapped to show.
   useEffect(() => {
     console.log('Inside useEffect and token is ', token);
     const getDocument = async () => {

@@ -8,7 +8,7 @@ function Editors() {
   const [css, handleCss] = useState('');
   const [javascript, handleJs] = useState('');
   const { getsrc, saveSrc } = useDocument();
-  const pathName=window.location.pathname;
+  const pathName = window.location.pathname;
   //This useEffect is to handle Change in code, As soon as user stops for about 200 millisecond
   //It will render it
   useEffect(() => {
@@ -26,31 +26,39 @@ function Editors() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [html, css, javascript]);
 
-
-
-  useEffect(()=>{
-      if(pathName==='/Edit'){
-    const srcdoc =localStorage.getItem('srcdoc');
-    console.log(srcdoc)
-    let breakString = srcdoc.trim()
-    let startIndex = breakString.indexOf('<body>');
-    let endIndex = breakString.indexOf('</body>')
-    let requiredPart = breakString.substr(startIndex+6,endIndex-startIndex-6)
-    console.log('In useEffect',requiredPart)
-    handleHtml(requiredPart)
-    startIndex = breakString.indexOf('<style>');
-    endIndex = breakString.indexOf('</style>')
-    requiredPart = breakString.substr(startIndex+7,endIndex-startIndex-7)
-    console.log('In useEffect',requiredPart)
-    handleCss(requiredPart)
-     startIndex = breakString.indexOf('<script>');
-    endIndex = breakString.indexOf('</script>')
-    requiredPart = breakString.substr(startIndex+8,endIndex-startIndex-8)
-    console.log('In useEffect',requiredPart)
-    handleJs(requiredPart)
+  // Case when some previous code from database is being fetched
+  useEffect(() => {
+    if (pathName === '/Edit') {
+      const srcdoc = localStorage.getItem('srcdoc');
+      console.log(srcdoc);
+      let breakString = srcdoc.trim();
+      let startIndex = breakString.indexOf('<body>');
+      let endIndex = breakString.indexOf('</body>');
+      let requiredPart = breakString.substr(
+        startIndex + 6,
+        endIndex - startIndex - 6
+      );
+      console.log('In useEffect', requiredPart);
+      handleHtml(requiredPart);
+      startIndex = breakString.indexOf('<style>');
+      endIndex = breakString.indexOf('</style>');
+      requiredPart = breakString.substr(
+        startIndex + 7,
+        endIndex - startIndex - 7
+      );
+      console.log('In useEffect', requiredPart);
+      handleCss(requiredPart);
+      startIndex = breakString.indexOf('<script>');
+      endIndex = breakString.indexOf('</script>');
+      requiredPart = breakString.substr(
+        startIndex + 8,
+        endIndex - startIndex - 8
+      );
+      console.log('In useEffect', requiredPart);
+      handleJs(requiredPart);
     }
-  },[])
-  
+  }, []);
+
   return (
     <div className='editors'>
       <Editor language='html' value={html} onchange={handleHtml} name='html' />

@@ -17,6 +17,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import MakeStyle from './Styles';
 import useDocument from '../../api/Documents';
+import history from '../History';
 
 function DocumentCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -24,9 +25,10 @@ function DocumentCard(props) {
   const [open, setOpen] = useState(false);
   const classes = MakeStyle();
   const cardClasses = MakeStyle();
+  // This document is being passed as a prop from Documents.jsx during the map
   const document = props.document;
   const id = document._id;
-  const name=document.name;
+  const name = document.name;
   let date = new Date(document.updatedAt);
   date = date.toUTCString();
   const handleClick = (event) => {
@@ -80,7 +82,13 @@ function DocumentCard(props) {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem>Edit</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      history.push('/Edit');
+                    }}
+                  >
+                    Edit
+                  </MenuItem>
                   <MenuItem
                     onClick={() => {
                       handleClickOpen(id);
@@ -133,12 +141,11 @@ function DocumentCard(props) {
               // state: {
               //   srcdoc: document.content,
               // },
-              
             }}
-            onClick={()=>{
-              localStorage.setItem('srcdoc',document.content)
-              localStorage.setItem('name',name)
-              console.log(document.content)
+            onClick={() => {
+              localStorage.setItem('srcdoc', document.content);
+              localStorage.setItem('name', name);
+              console.log(document.content);
             }}
           >
             <CardMedia

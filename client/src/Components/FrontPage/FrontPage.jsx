@@ -7,7 +7,7 @@ function FrontPage() {
   const { getsrc } = useDocument();
   const [srcdoc, setSrcdoc] = useState('');
   // Page is being saved every 1 sec, into localStorage,
-  
+
   useEffect(() => {
     const timeInterval = setInterval(() => {
       const src = getsrc();
@@ -17,16 +17,17 @@ function FrontPage() {
       clearInterval(timeInterval);
     };
   }, [srcdoc]);
- useEffect(()=>{
+
+  useEffect(() => {
     const document = localStorage.getItem('srcdoc');
-    if(document && document!=='')
-    setSrcdoc(document)
-  },[]);
+    if (document && document !== '') setSrcdoc(document);
+  }, []);
+
   return (
     <div className='frontPage'>
       <Header />
       <div className='frontPage__middle'>
-        <Editors/>
+        <Editors />
       </div>
 
       <div className='frontPage__iframe'>

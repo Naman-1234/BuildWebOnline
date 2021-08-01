@@ -6,11 +6,11 @@
 
     - About
     - Demonstration
-    - Glimpse
     - Tech Stack Used
     - Folder Structure
     - Running Locally
     - Learning
+    - Glimpse
     - TODO
 
 ## About
@@ -23,24 +23,6 @@
 
 This is a demonstration of the App showing Real time changes of the page being made by the user. Here Editors are for HTML, CSS and Javascript. Then its output as a webpage is shown in the iframe used below.
 ![Working](https://user-images.githubusercontent.com/63748249/122638995-157d8c80-d115-11eb-82cc-565490424d10.gif)
-
-## Glimpse
-
-<kbd>
-<img src="https://user-images.githubusercontent.com/63748249/124733015-6a9d0900-df31-11eb-85a0-f7f4a5dffdb0.png" alt="frontpage">
-</kbd>
-<kbd>
-<img src="https://user-images.githubusercontent.com/63748249/124733020-6c66cc80-df31-11eb-947e-8820316e7666.png" alt="SignUp">
-</kbd>
-<kbd>
-<img src="https://user-images.githubusercontent.com/63748249/124733019-6bce3600-df31-11eb-939e-23000afb53d5.png" alt="Login">
-</kbd>
-<kbd>
-<img src="https://user-images.githubusercontent.com/63748249/124733021-6c66cc80-df31-11eb-8803-d2bf1caec1a2.png" alt="Profile">
-</kbd>
-<kbd>
-<img src="https://user-images.githubusercontent.com/63748249/124733283-afc13b00-df31-11eb-9fc6-6a804127c54b.png" alt="Documents">
-</kbd>
 
 ## Tech Stack Used
 
@@ -141,6 +123,25 @@ Through this I got to learn more about
      3. Handling authentication in Postman.
   3. Tests
      Tests are being written in Jest to ensure previous features are working fine after adding of new ones.
+
+
+## Glimpse
+
+<kbd>
+<img src="https://user-images.githubusercontent.com/63748249/124733015-6a9d0900-df31-11eb-85a0-f7f4a5dffdb0.png" alt="frontpage">
+</kbd>
+<kbd>
+<img src="https://user-images.githubusercontent.com/63748249/124733020-6c66cc80-df31-11eb-947e-8820316e7666.png" alt="SignUp">
+</kbd>
+<kbd>
+<img src="https://user-images.githubusercontent.com/63748249/124733019-6bce3600-df31-11eb-939e-23000afb53d5.png" alt="Login">
+</kbd>
+<kbd>
+<img src="https://user-images.githubusercontent.com/63748249/124733021-6c66cc80-df31-11eb-8803-d2bf1caec1a2.png" alt="Profile">
+</kbd>
+<kbd>
+<img src="https://user-images.githubusercontent.com/63748249/124733283-afc13b00-df31-11eb-9fc6-6a804127c54b.png" alt="Documents">
+</kbd>
 
 ## I will continue working on this project and will add some more features:
 

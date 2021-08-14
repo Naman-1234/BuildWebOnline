@@ -7,7 +7,11 @@ const {
   firstAuthenticatedUser,
   setUpDatabase,
 } = require('./fixtures/db');
-
+/***
+ *
+ * Mainly tests deal with errors that can come if any code gets broke on the server side,and
+ * to deal with the authentication part
+ */
 beforeEach(setUpDatabase);
 test('User should be able to fetch all its documents', async () => {
   const response = await request(app)

@@ -11,7 +11,11 @@ const {
 } = require('./fixtures/db');
 
 beforeEach(setUpDatabase);
-
+/***
+ *
+ * Mainly tests deal with errors that can come if any code gets broke on the server side,and
+ * to deal with the authentication part
+ */
 test('should sign up a user', async () => {
   await request(app)
     .post('/users/signup')

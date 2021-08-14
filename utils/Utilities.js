@@ -1,4 +1,6 @@
 const fs = require('fs');
+//This is a very useful utility, especially when u want
+// to give some time lapse between code or for testing.
 const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
